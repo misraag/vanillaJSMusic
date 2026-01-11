@@ -3,13 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css" />
+
+    <!--CSS FILES -->
+    <link rel="stylesheet" href="styles/app.css" />
+    <link rel="stylesheet" href="styles/nav.css" />
+    <link rel="stylesheet" href="styles/midsection.css" />
+    <link rel="stylesheet" href="styles/footer.css" />
+
+
     <title>Vanilla Player</title>
 </head>
-<body>
-    Vanilla Js Player
-    <div id="test">Inside div</div>
 
+
+<body>
+
+    <div id="dom">
+
+        <!-- NAVBAR -->
+        <div id="navbar">
+            <div class="leftSection">Logo</div>
+            <div class="rightSection">SearchBar</div>
+        </div>
+        
+
+        <!-- MID SECTION CONTAINING LEFT MID AND RIGHT SECTIONS -->
+        <div id="midsection">
+            <div id="libraries" class="leftSection">Hi</div>
+            <div id="songs" class="rightSection">Hello</div>
+        </div>
+
+        <!-- CONTROL SECTION -->
+        <div id="footer">
+            <div class="leftSection">PlayPause</div>
+            <div class="rightSection">SongInfo</div>
+        </div>
+
+    <!-- Javascript -->
     <script type="module" src="src/app.js"></script>
 </body>
+
+
 </html>
