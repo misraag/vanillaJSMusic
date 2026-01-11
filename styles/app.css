@@ -7,6 +7,8 @@ background-color: red;
     margin: 0;
     padding: 0;
     font-family: 'Marcellus', serif;
+    font-family: 'Playfair Display', serif;
+    font-family: "Montserrat", sans-serif;
     background-color: black;
     color: white;
     font-size: 1rem;
@@ -18,32 +20,34 @@ background-color: red;
 #navbar {
     display: flex;
     height: 9vh;
-    background-color: grey;
+    /* background-color: grey; */
 }
 
 #midsection {
     display: flex;
     height: 81vh;
     width: 100vw;
-    background-color: rgb(7, 108, 21);
+    /* background-color: rgb(7, 108, 21); */
 }
 
 #footer {
     display: flex;
     height: 10vh;
-    background-color: rgb(72, 46, 46);
+    /* background-color: rgb(74, 74, 74); */
 }
 
 .leftSection{
-    width: 23%;
+    width: 16%;
     height: 100%;
-    background-color: aqua;
-    padding: 5px;
+    /* background-color: aqua; */
+    padding: 20px;/
+    /* background-color: red; */
 }
 
 .rightSection{
-    width: 77%;
+    width: 84%;
     height: 100%;
-    background-color: bisque;
+    /* background-color: bisque; */
     padding: 5px;
 }
+

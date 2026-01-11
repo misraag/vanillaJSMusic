@@ -4,6 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- FONTS  -->
+     <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Acme&family=Alice&family=Great+Vibes&family=Kalam&family=Lobster&family=Marcellus&family=Pacifico&family=Philosopher:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Kalam&family=Lobster&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Preahvihear&family=Roboto+Slab&family=Varela&display=swap" rel="stylesheet">        <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
     <!--CSS FILES -->
     <link rel="stylesheet" href="styles/app.css" />
     <link rel="stylesheet" href="styles/nav.css" />
@@ -21,24 +50,57 @@
 
         <!-- NAVBAR -->
         <div id="navbar">
-            <div class="leftSection">Logo</div>
-            <div class="rightSection">SearchBar</div>
+            <div class="leftSection">
+                <div class="logoSection">
+                    <div class="tile"><i class="fa-solid fa-bars"></i><img src="public/logo.svg" alt="App Logo" class=""></div>
+                </div>
+            </div>  
+            <!-- <div class="leftSection logoSection"><img src="public/logo.svg" alt="App Logo" class="logo"></div> -->
+            <div class="rightSection searchSection">SearchBar</div>
         </div>
         
 
         <!-- MID SECTION CONTAINING LEFT MID AND RIGHT SECTIONS -->
         <div id="midsection">
-            <div id="libraries" class="leftSection">Hi</div>
+            <div id="libraries" class="leftSection">
+                <div class="tileSection">
+                    <div class="tile"><i class="fa-solid fa-house"></i>Home</div>
+                    <div class="tile"><i class="fa-solid fa-compass"></i>Explore</div>
+                    <div class="tile"><i class="fa-solid fa-bookmark"></i>Library</div>
+
+                </div>
+                <div class="dynamicSection">
+                    Create
+                </div>
+            </div>
             <div id="songs" class="rightSection">Hello</div>
         </div>
 
         <!-- CONTROL SECTION -->
         <div id="footer">
-            <div class="leftSection">PlayPause</div>
-            <div class="rightSection">SongInfo</div>
+            <div class="leftSection controlSection">
+                <div class="controlButtons">
+                    <i class="fas fa-2x fa-step-backward" id="previous"></i>
+                    <i class="fa-solid fa-play controlPlayButton"></i>
+                    <i class="fas fa-2x fa-step-forward" id="next"></i>
+                </div>
+                <div class="songTimer">
+                    3:48/4:15
+                </div>
+                
+            </div>
+            <div class="rightSection songInfo">SongInfo
+                <i class="fa-solid fa-book-open iconspacing"></i>
+            </div>
         </div>
 
     <!-- Javascript -->
+        <!-- FontAwesomeIcons -->
+        <script
+        src="https://kit.fontawesome.com/bfe7c45ec2.js"
+        crossorigin="anonymous"
+        ></script>
+
     <script type="module" src="src/app.js"></script>
 </body>
 

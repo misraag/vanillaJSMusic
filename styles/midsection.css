@@ -1,7 +1,58 @@
+/* LEFT SECTION */
 #libraries {
-    background-color: rgb(84, 164, 164);
+    background-color: black;
+    border-right: 1px solid rgb(52, 51, 51);
+    /* padding: 5px; */
 }
 
+.staticSection{
+    height: 30%;
+    /* background-color: aliceblue; */
+    border-bottom: 1px solid rgb(52, 51, 51);
+}
+
+.tile {
+    cursor: pointer;
+    height: 30%;
+    margin-bottom: 5px;
+}
+
+.tileSection {
+    height: 30%;
+    /* padding: 20px; */
+   cursor: pointer;
+   /* margin: 2px auto; */
+   /* background-color: red; */
+}
+
+.tile i {
+    padding: 5px 20px;
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+/* .staticSection div {
+    height: 30%;
+    padding: 20px;
+   cursor: pointer;
+   margin: 2px auto;
+}
+
+.staticSection div i {
+    width: 20px;
+    margin-right: 15px;
+    background-color: green; 
+     font-size: 15px;
+    
+} */
+
+.dynamicSection {
+    height: 70%;
+    /* background-color: antiquewhite; */
+}
+
+
+/* RIGHT SECTION */
 #songs {
-    background-color: rgb(196, 163, 123);
+    background-color: rgb(7, 5, 3);
 }
