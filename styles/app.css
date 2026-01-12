@@ -50,5 +50,36 @@ background-color: red;
     height: 100%;
     /* background-color: bisque; */
     padding: 5px;
+    background: linear-gradient(
+    to bottom,
+    #0a1117,
+    rgba(0, 0, 0, 0)
+    )
 }
+
+
+
+
+/* VOLUME BAR CSS */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 60px;
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #b31b1b 50%,
+    #ccc 50%
+  );
+  border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  background: #b31b1b;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 

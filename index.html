@@ -57,7 +57,11 @@
                 </div>
             </div>  
             <!-- <div class="leftSection logoSection"><img src="public/logo.svg" alt="App Logo" class="logo"></div> -->
-            <div class="rightSection searchSection">SearchBar</div>
+            <div class="rightSection searchSection">
+                <div class="searchRightSection">
+                    <input type="text" placeholder="Search songs, albums, artists" class="searchBar">
+                </div>
+            </div>
         </div>
         
 
@@ -80,7 +84,9 @@
                     </div>
                 </div>
             </div>
-            <div id="songs" class="rightSection">Hello</div>
+            <div id="songs" class="rightSection">
+                <div class="songsRightSection"></div>
+            </div>
         </div>
 
         <!-- CONTROL SECTION -->
@@ -96,8 +102,31 @@
                 </div>
                 
             </div>
-            <div class="rightSection songInfo">SongInfo
-                <i class="fa-solid fa-book-open iconspacing"></i>
+            <div class="rightSection songInfo">
+                <div class="footerRightSection">
+                    <div class="songDetails">
+                        <div class="songImage"><img src="public/logo.svg" alt="Unable"></div>
+                        <div class="songName">
+                            <div class="songTitle">Tum Hi Ho</div>
+                            <div class="songDescription">Arijit Singh</div>
+                        </div>
+                    </div>
+                    <div class="volumeSection">
+                        <input
+                            id="myVolumeBar"
+                            type="range"
+                            class="progressBar"
+                            min="0"
+                            value="10"
+                            max="100"
+                            onchange="setVolume()"
+                        />
+                        <i class="fa-solid fa-volume-high"></i>
+                        <i class="fa-solid fa-repeat"></i>
+                    </div>
+                </div>
+
+                
             </div>
         </div>
 

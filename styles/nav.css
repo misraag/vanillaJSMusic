@@ -37,3 +37,30 @@
     align-items: center;
     background-color: #0a1117;
 }
+
+.searchRightSection{
+    width: 85%;
+    /* background-color: grey; */
+    height: 100%;
+    /* display: flex;
+    justify-content: center; */
+    margin: auto;
+    /* background-color: rgb(16, 16, 26) */
+    background-color: #0a1117;
+    
+    display: flex;
+    align-items: center;
+    
+}
+
+.searchBar{
+    height: 80%;
+    width: 50%;
+    background-color: #2d373a;
+    padding: 10px;
+    border-radius:5px;
+    border: 1px solid grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
