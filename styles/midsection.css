@@ -1,4 +1,4 @@
-/* LEFT SECTION */
+/*********************************** LEFT SECTION *****************************************/
 #libraries {
     background-color: black;
     border-right: 1px solid rgb(52, 51, 51);
@@ -8,7 +8,6 @@
 .tileSection {
     height: 30%;
    cursor: pointer;
-   /* background-color: red; */
    border-bottom: 1px solid rgb(52, 51, 51);
 }
 
@@ -17,7 +16,6 @@
     cursor: pointer;
     height: 28%;
     margin-bottom: 5px;
-    /* background-color: blue; */
     display: flex;
     align-items: center;
 }
@@ -30,20 +28,17 @@
 }
 
 .tile i {
-    /* padding: 5px 20px; */
     margin-left: 8px;
     margin-right: 15px;
     font-size: 20px;
     width: 25px;
     display: flex;
     justify-content: center;
-    /* background-color: blue; */
 }
 
 
 .dynamicSection {
     height: 70%;
-    /* background-color: antiquewhite; */
 }
 
 #createPlaylist {
@@ -58,7 +53,6 @@
 }
 
 #dynamicPlaylist{
-    /* background-color: aliceblue; */
     height: 80%;
     overflow-y: auto;
 }
@@ -69,7 +63,6 @@
     padding-left: 8px;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     cursor: pointer;
     border-radius: 5px;
     justify-content: center;
@@ -87,45 +80,29 @@
     background-color: rgb(52, 51, 51);
 }
 
-/* RIGHT SECTION */
-#songs {
-    /* background-color: rgb(7, 5, 3); */
-}
+/***************************************** RIGHT SECTION *******************************************/
 
 .songsRightSection{
-    /* width: 85%; */
-    /* background: linear-gradient(
-    to bottom,
-    #0a1117,
-    rgba(0, 0, 0, 0)
-  ); */
   background-color: transparent;
     height: 100%;
-    /* display: flex;
-    justify-content: center; */
+    padding: 0 5%;
     margin: auto;
-    /* background-color: rgb(16, 16, 26) */
-    /* background-color: #0a1117; */
     overflow-y: auto;
     scrollbar-width: thin;
-
     scrollbar-color: #555 #1a1a1a;
 }
 
 .container-fluid{
     background-color: transparent;
-    /* background-color: red; */
 }
 
 #songGrid{
     background-color: transparent;
-    /* margin-bottom: 50px; */
 }
 
 
 .songGridCol{
     background-color: transparent;
-    /* background-color: red; */
     margin-bottom: 35px;
 }
 
@@ -142,7 +119,6 @@
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 10px;
-  /* background-color: transparent; */
 }
 
 .song-title {
@@ -153,14 +129,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* background-color: #1db954; */
   background-color: transparent;
 }
 
 .song-sub {
   font-size: 12px;
   color: #aaa;
-  /* background-color: blue; */
   background-color: transparent;
 }
 
@@ -169,5 +143,5 @@
 }
 
 .song-card.active img {
-  outline: 2px solid #1db954; /* playing indicator */
+  outline: 2px solid #1db954;
 }

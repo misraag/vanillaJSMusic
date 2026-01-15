@@ -1,17 +1,15 @@
-/* LEFT SECTION */
+/************************** LEFT SECTION ***************************/
 
 .logoSection {
    cursor: pointer;
    margin: 2px auto;
    display: flex;
    align-items: center;  
-   /* background-color: red; */
 }
 
 .navTile{
     cursor: pointer;
     margin-bottom: 5px;
-    /* background-color: blue; */
     display: flex;
     align-items: center;
 }
@@ -23,15 +21,13 @@
     width: 25px;
     display: flex;
     justify-content: center;
-    /* background-color: blue; */
 }
 
 
 
 
 
-
-/* RIGHT SECTION */
+/************************** RIGHT SECTION ********************************/
 .searchSection{
     display: flex;
     align-items: center;
@@ -40,17 +36,11 @@
 
 .searchRightSection{
     width: 85%;
-    /* background-color: grey; */
     height: 100%;
-    /* display: flex;
-    justify-content: center; */
     margin: auto;
-    /* background-color: rgb(16, 16, 26) */
     background-color: #0a1117;
-    
     display: flex;
-    align-items: center;
-    
+    align-items: center;    
 }
 
 .searchBar{
