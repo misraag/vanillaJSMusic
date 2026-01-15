@@ -93,7 +93,7 @@
 }
 
 .songsRightSection{
-    width: 85%;
+    /* width: 85%; */
     /* background: linear-gradient(
     to bottom,
     #0a1117,
@@ -106,5 +106,68 @@
     margin: auto;
     /* background-color: rgb(16, 16, 26) */
     /* background-color: #0a1117; */
-    
+    overflow-y: auto;
+    scrollbar-width: thin;
+
+    scrollbar-color: #555 #1a1a1a;
+}
+
+.container-fluid{
+    background-color: transparent;
+    /* background-color: red; */
+}
+
+#songGrid{
+    background-color: transparent;
+    /* margin-bottom: 50px; */
+}
+
+
+.songGridCol{
+    background-color: transparent;
+    /* background-color: red; */
+    margin-bottom: 35px;
+}
+
+
+
+.song-card {
+  background: transparent;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.song-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  /* background-color: transparent; */
+}
+
+.song-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* background-color: #1db954; */
+  background-color: transparent;
+}
+
+.song-sub {
+  font-size: 12px;
+  color: #aaa;
+  /* background-color: blue; */
+  background-color: transparent;
+}
+
+.song-card:hover img {
+  filter: brightness(0.85);
+}
+
+.song-card.active img {
+  outline: 2px solid #1db954; /* playing indicator */
 }
