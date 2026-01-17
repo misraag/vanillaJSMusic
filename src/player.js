@@ -3,11 +3,12 @@ import { audioPlayer, footerSongTitle, footerSongDescription, footerSongImage } 
 
 export function playSong(index) {
     const song = playlists[currentPlaylist][index];
-
-    audioPlayer.src = song.file;
+    
+    console.log("Inside player js " + song);
+    audioPlayer.src = song.filepath;
     audioPlayer.play();
 
-    footerSongTitle.textContent = song.title;
-    footerSongDescription.textContent = song.artist;
-    footerSongImage.src = song.cover;
+    footerSongTitle.textContent = song.songName;
+    footerSongDescription.textContent = song.songName;
+    footerSongImage.src = song.coverPath;
 }

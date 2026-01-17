@@ -150,3 +150,7 @@ export const playlists = {
   ],
   Liked: [],
 };
+
+export function setCurrentSongIndex(i) {
+    currentSongIndex = i;
+}
