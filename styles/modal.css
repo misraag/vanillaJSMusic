@@ -1,0 +1,57 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #121212;
+    padding: 18px;
+    width: 320px;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.modal-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.modal-body input {
+    width: 100%;
+    padding: 8px 10px;
+    background: #1e1e1e;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.modal-footer button {
+    padding: 6px 10px;
+    background: #e64545;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-footer button#savePlaylist {
+    background: #52b757;
+}

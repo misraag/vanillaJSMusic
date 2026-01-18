@@ -151,6 +151,12 @@ export const playlists = {
   Liked: [],
 };
 
+export const userPlaylists = ["Liked","WWE"];
+
 export function setCurrentSongIndex(i) {
     currentSongIndex = i;
+}
+
+export function setCurrentPlaylist(playlistName) {
+  currentPlaylist = playlistName;
 }

@@ -18,3 +18,10 @@ export const footerSongImage = document.querySelector(".songImage img");
 // Volume Section
 export const volumeSlider = document.getElementById("myVolumeBar");
 export const repeatButton = document.querySelector(".fa-repeat");
+
+
+// MODAL SECTION
+export const playlistModal = document.getElementById("playlistModal");
+export const playlistInput = document.getElementById("playlistInput");
+export const savePlaylistBtn = document.getElementById("savePlaylist");
+export const cancelPlaylistBtn = document.getElementById("cancelPlaylist");
