@@ -151,7 +151,7 @@ export const playlists = {
   Liked: [],
 };
 
-export const userPlaylists = ["Liked","WWE"];
+export const userPlaylists = ["Liked"];
 
 export function setCurrentSongIndex(i) {
     currentSongIndex = i;
@@ -185,9 +185,30 @@ export function addSongToPlaylist(songId, playlistName) {
     saveState();
 }
 
+export function createPlaylist(name) {
+    if (!name || playlists[name]) return; // avoid duplicates
+
+    // create empty playlist
+    playlists[name] = [];
+
+    // update ordering (so it shows in sidebar)
+    userPlaylists.push(name);
+
+    saveState();
+}
+
+
 
 export function saveState() {
     localStorage.setItem("playlists", JSON.stringify(playlists));
     localStorage.setItem("userPlaylists", JSON.stringify(userPlaylists));
+}
+
+export function loadState() {
+    const storedPlaylists = JSON.parse(localStorage.getItem("playlists"));
+    const storedUserPlaylists = JSON.parse(localStorage.getItem("userPlaylists"));
+
+    if (storedPlaylists) Object.assign(playlists, storedPlaylists);
+    if (storedUserPlaylists) userPlaylists.splice(0, userPlaylists.length, ...storedUserPlaylists);
 }
 

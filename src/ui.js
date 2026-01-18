@@ -1,4 +1,4 @@
-import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong } from "./state.js";
+import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist } from "./state.js";
 import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal } from "./dom.js";
 import { switchPlaylist } from "./events.js";
 
@@ -8,7 +8,7 @@ export function renderSongs() {
 
   songGrid.innerHTML = "";
 
-  if(songs.length!=0) {
+  if(songs && songs.length!=0) {
     songs.forEach((song, index) => {
     const col = document.createElement("div");
     col.className = "col-6 col-md-4 col-lg-2 songGridCol";
@@ -96,8 +96,9 @@ modalCreate.addEventListener("click", () => {
     const name = prompt("Playlist name:");
     if (!name) return;
     createPlaylist(name);
+    addSongToPlaylist(modalTargetSong, name); // auto add
     renderPlaylists();
-    openAddingSongsModal(); 
+    closeAddingSongsModal(); 
 });
 
 
