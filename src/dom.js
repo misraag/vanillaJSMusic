@@ -18,6 +18,11 @@ export const footerSongImage = document.querySelector(".songImage img");
 export const volumeSlider = document.getElementById("myVolumeBar");
 export const repeatButton = document.querySelector(".fa-repeat");
 
+// TIMER SECTION
+export const timeDisplay = document.querySelector(".songTimer");
+export const progressBar = document.querySelector("#progressBar");
+export const seekBar = document.querySelector("#seekBar");
+
 
 // MODAL SECTION
 export const playlistModal = document.getElementById("playlistModal");

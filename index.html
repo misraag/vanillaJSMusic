@@ -132,26 +132,32 @@
             </div>
             <div class="rightSection songInfo">
                 <div class="footerRightSection">
-                    <div class="songDetails">
-                        <div class="songImage"><img src="covers/Aaya Na Tu.jpg" alt="Unable"></div>
-                        <div class="songName">
-                            <div class="songTitle">Aaya Na Tu</div>
-                            <div class="songDescription">Arijit Singh</div>
+                    <div id="progressBar">                       
+                            <div id="seekBar" class="progress" id="progress"></div>
+                    </div>
+                    <div id="currentSongControls">
+                        <div class="songDetails">
+                            <div class="songImage"><img src="covers/Aaya Na Tu.jpg" alt="Unable"></div>
+                            <div class="songName">
+                                <div class="songTitle">Aaya Na Tu</div>
+                                <div class="songDescription">Arijit Singh</div>
+                            </div>
+                        </div>
+                        <div class="volumeSection">
+                            <input
+                                id="myVolumeBar"
+                                type="range"
+                                class="volumeProgressBar"
+                                min="0"
+                                value="10"
+                                max="100"
+                                onchange="setVolume()"
+                            />
+                            <i class="fa-solid fa-volume-high"></i>
+                            <i class="fa-solid fa-repeat"></i>
                         </div>
                     </div>
-                    <div class="volumeSection">
-                        <input
-                            id="myVolumeBar"
-                            type="range"
-                            class="progressBar"
-                            min="0"
-                            value="10"
-                            max="100"
-                            onchange="setVolume()"
-                        />
-                        <i class="fa-solid fa-volume-high"></i>
-                        <i class="fa-solid fa-repeat"></i>
-                    </div>
+                    
                 </div>
 
                 

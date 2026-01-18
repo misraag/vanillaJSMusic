@@ -1,59 +1,100 @@
-import { playlists, currentPlaylist, currentSongIndex, setCurrentSongIndex } from "./state.js";
-import { audioPlayer } from "./dom.js";
+import {
+  playlists,
+  currentPlaylist,
+  currentSongIndex,
+  setCurrentSongIndex,
+} from "./state.js";
+import { audioPlayer, progressBar, seekBar, timeDisplay } from "./dom.js";
 import { playToggleButton } from "./dom.js";
 import { updateFooter } from "./ui.js";
 
 export let isPlaying = false;
 
 export function playCurrent() {
-    const song = playlists[currentPlaylist][currentSongIndex];
-    audioPlayer.src = song.filepath;
-    audioPlayer.play();
-    isPlaying = true;
-    updatePlayButton();
-    updateFooter(song);
+  const song = playlists[currentPlaylist][currentSongIndex];
+  audioPlayer.src = song.filepath;
+  audioPlayer.play();
+  isPlaying = true;
+  updatePlayButton();
+  updateFooter(song);
+  const total = formatTime(audio.duration || 0);
+  timeDisplay.textContent = `0:00 / ${total}`;
 }
 
 export function playSong(index) {
-    audioPlayer.play();
-    isPlaying = true;
-    updatePlayButton();
-    updateFooter(song);
+  audioPlayer.play();
+  isPlaying = true;
+  updatePlayButton();
+  updateFooter(song);
 }
 
 export function pauseSong() {
-    audioPlayer.pause();
-    isPlaying = false;
-    updatePlayButton();
+  audioPlayer.pause();
+  isPlaying = false;
+  updatePlayButton();
 }
 
 export function togglePlay() {
-    if(isPlaying) pauseSong();
-    else playSong;
+  if (isPlaying) pauseSong();
+  else playSong;
 }
 
-export function nextSong(){
-    const length = playlists[currentPlaylist].length;
-    setCurrentSongIndex((currentSongIndex + 1)%length);
-    playCurrent();
+export function nextSong() {
+  const length = playlists[currentPlaylist].length;
+  setCurrentSongIndex((currentSongIndex + 1) % length);
+  playCurrent();
 }
 
 export function prevSong() {
-    const length = playlists[currentPlaylist].length;
-    setCurrentSongIndex((currentSongIndex - 1 + length) % length);
-    playCurrent();
+  const length = playlists[currentPlaylist].length;
+  setCurrentSongIndex((currentSongIndex - 1 + length) % length);
+  playCurrent();
 }
 
 function updatePlayButton() {
-    if (isPlaying) {
-        playToggleButton.classList.remove("fa-play");
-        playToggleButton.classList.add("fa-pause");
-    } else {
-        playToggleButton.classList.remove("fa-pause");
-        playToggleButton.classList.add("fa-play");
-    }
+  if (isPlaying) {
+    playToggleButton.classList.remove("fa-play");
+    playToggleButton.classList.add("fa-pause");
+  } else {
+    playToggleButton.classList.remove("fa-pause");
+    playToggleButton.classList.add("fa-play");
+  }
 }
 
+// TIMER FUNCTIONS
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s < 10 ? "0" + s : s}`;
+}
+
+progressBar.addEventListener("click", (e) => {
+    const rect = progressBar.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const percent = clickX / rect.width;
+    audioPlayer.currentTime = audioPlayer.duration * percent;
+});
+
+
+audioPlayer.ontimeupdate = () => {
+  if (!audioPlayer.duration) return;
+
+  const current = formatTime(audioPlayer.currentTime);
+  const total = formatTime(audioPlayer.duration);
+
+  const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    seekBar.style.width = `${percent}%`;
+
+  
+
+  timeDisplay.textContent = `${current} / ${total}`;
+};
+
+audioPlayer.onloadedmetadata = () => {
+    const total = formatTime(audioPlayer.duration);
+    timeDisplay.textContent = `0:00 / ${total}`;
+};
+
 audioPlayer.onended = () => {
-    nextSong();
+  nextSong();
 };
