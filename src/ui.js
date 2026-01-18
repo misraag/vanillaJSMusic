@@ -1,5 +1,5 @@
-import { playlists, currentPlaylist, userPlaylists } from "./state.js";
-import { songGrid, footerSongTitle, footerSongDescription, footerSongImage } from "./dom.js";
+import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong } from "./state.js";
+import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal } from "./dom.js";
 import { switchPlaylist } from "./events.js";
 
 export function renderSongs() {
@@ -18,8 +18,17 @@ export function renderSongs() {
       <img src="${song.coverPath}" alt="${song.songName}">
       <div class="song-title">${song.songName}</div>
       <div class="song-sub">Song</div>
+      <i class="fa-solid fa-ellipsis-vertical songMenu"></i>
     </div>
   `;
+
+  const menu = col.querySelector(".songMenu");
+  menu.addEventListener("click", (e) => {
+      e.stopPropagation(); 
+      setModalTarget(song.id);
+      openAddingSongsModal();
+  });
+
 
     col.addEventListener("click", () => playSongFromUI(index));
     songGrid.appendChild(col);
@@ -52,4 +61,47 @@ export function updateFooter(song) {
     footerSongDescription.textContent = song.songName;
     footerSongImage.src = song.coverPath;
 }
+
+export function openAddingSongsModal() {
+    modalList.innerHTML = "";
+
+    // liked first
+    modalList.innerHTML += `
+        <div class="modalItem" data-key="Liked">Liked Songs</div>
+    `;
+
+    // custom playlists next
+    userPlaylists.forEach(name => {
+        modalList.innerHTML += `
+            <div class="modalItem" data-key="${name}">${name}</div>
+        `;
+    });
+
+    addingSongsModal.classList.remove("hidden");
+}
+
+export function closeAddingSongsModal() {
+    addingSongsModal.classList.add("hidden");
+}
+
+modalList.addEventListener("click", (e) => {
+    const key = e.target.dataset.key;
+    if (!key) return;
+    addSongToPlaylist(modalTargetSong, key);
+    closeAddingSongsModal();
+});
+
+
+modalCreate.addEventListener("click", () => {
+    const name = prompt("Playlist name:");
+    if (!name) return;
+    createPlaylist(name);
+    renderPlaylists();
+    openAddingSongsModal(); 
+});
+
+
+
+
+
 

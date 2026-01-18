@@ -6,9 +6,10 @@ import {
   createPlaylistBtn,
   savePlaylistBtn,
   cancelPlaylistBtn,
+  footerMenu,
 } from "./dom.js";
 import { renderPlaylists, renderSongs } from "./ui.js";
-import { setCurrentPlaylist, userPlaylists } from "./state.js";
+import { setCurrentPlaylist, setModalTarget, userPlaylists } from "./state.js";
 
 import {
   playlists,
@@ -58,5 +59,8 @@ export function initPlaylistEvents() {
     renderSongs();
   };
 }
+
+
+
 
 

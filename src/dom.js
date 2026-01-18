@@ -24,8 +24,15 @@ export const progressBar = document.querySelector("#progressBar");
 export const seekBar = document.querySelector("#seekBar");
 
 
-// MODAL SECTION
+// MODAL SECTION FOR CREATING NEW PLAYLIST
 export const playlistModal = document.getElementById("playlistModal");
 export const playlistInput = document.getElementById("playlistInput");
 export const savePlaylistBtn = document.getElementById("savePlaylist");
 export const cancelPlaylistBtn = document.getElementById("cancelPlaylist");
+
+
+//MODAL FOR ADDING SONGS TO PLAYLIST
+export const addingSongsModal = document.querySelector("#addingSongsModal");
+export const modalList = document.querySelector("#modalList");
+export const modalCreate = document.querySelector("#modalCreate");
+export const footerMenu = document.querySelector("#footerMenu");

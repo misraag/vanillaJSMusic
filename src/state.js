@@ -160,3 +160,34 @@ export function setCurrentSongIndex(i) {
 export function setCurrentPlaylist(playlistName) {
   currentPlaylist = playlistName;
 }
+
+//ADDING SONGS TO PLAYLIST
+export let modalTargetSong = null;
+
+export function setModalTarget(id) {
+    modalTargetSong = id;
+}
+
+export function getSongById(id) {
+    return playlists["Home"].find(s => s.id === id);
+}
+
+
+export function addSongToPlaylist(songId, playlistName) {
+    const song = getSongById(songId);
+    if (!song) return;
+
+    const list = playlists[playlistName];
+
+    const alreadyExists = list.some(s => s.id === songId);
+    if (!alreadyExists) list.push(song);
+
+    saveState();
+}
+
+
+export function saveState() {
+    localStorage.setItem("playlists", JSON.stringify(playlists));
+    localStorage.setItem("userPlaylists", JSON.stringify(userPlaylists));
+}
+

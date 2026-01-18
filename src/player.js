@@ -3,10 +3,11 @@ import {
   currentPlaylist,
   currentSongIndex,
   setCurrentSongIndex,
+  setModalTarget,
 } from "./state.js";
 import { audioPlayer, progressBar, seekBar, timeDisplay } from "./dom.js";
 import { playToggleButton } from "./dom.js";
-import { updateFooter } from "./ui.js";
+import { openAddingSongsModal, updateFooter } from "./ui.js";
 
 export let isPlaying = false;
 
@@ -61,6 +62,14 @@ function updatePlayButton() {
   }
 }
 
+footerMenu.addEventListener("click", () => {
+    if (!currentSongIndex) return;
+    setModalTarget(currentSongIndex);
+    openAddingSongsModal();
+});
+
+
+
 // TIMER FUNCTIONS
 function formatTime(seconds) {
   const m = Math.floor(seconds / 60);
@@ -91,8 +100,8 @@ audioPlayer.ontimeupdate = () => {
 };
 
 audioPlayer.onloadedmetadata = () => {
-    const total = formatTime(audioPlayer.duration);
-    timeDisplay.textContent = `0:00 / ${total}`;
+    timeDisplay.textContent = `0:00 / ${formatTime(audioPlayer.duration)}`;
+    seekBar.style.width = "0%";
 };
 
 audioPlayer.onended = () => {
