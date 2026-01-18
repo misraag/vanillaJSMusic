@@ -1,5 +1,5 @@
 import { playlists, currentPlaylist, userPlaylists } from "./state.js";
-import { songGrid } from "./dom.js";
+import { songGrid, footerSongTitle, footerSongDescription, footerSongImage } from "./dom.js";
 import { switchPlaylist } from "./events.js";
 
 export function renderSongs() {
@@ -45,5 +45,11 @@ export function renderPlaylists() {
         div.onclick = () => switchPlaylist(name);
         dynamicPlaylist.appendChild(div);
     });
+}
+
+export function updateFooter(song) {
+    footerSongTitle.textContent = song.songName;
+    footerSongDescription.textContent = song.songName;
+    footerSongImage.src = song.coverPath;
 }
 

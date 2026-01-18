@@ -1,7 +1,6 @@
 export const songGrid = document.getElementById("songGrid");
 export const audioPlayer = document.getElementById("audioPlayer");
-
-export const playButton = document.querySelector(".controlPlayButton");
+export const playToggleButton = document.querySelector(".controlPlayButton");
 export const nextButton = document.getElementById("next");
 export const prevButton = document.getElementById("previous");
 
