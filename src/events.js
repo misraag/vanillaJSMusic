@@ -1,4 +1,4 @@
-import {  pauseSong, isPlaying, nextSong, prevSong, playCurrent } from "./player.js";
+import {  pauseSong, isPlaying, nextSong, prevSong, playCurrent, playSong } from "./player.js";
 import {
   playToggleButton,
   nextButton,
@@ -19,7 +19,7 @@ import {
 } from "./state.js";
 
 export function initEvents() {
-  playToggleButton.onclick = () => isPlaying ? pauseSong() : playCurrent();
+  playToggleButton.onclick = () => isPlaying ? pauseSong() : playSong();
 
   nextButton.onclick = () => nextSong();
 

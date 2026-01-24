@@ -11,8 +11,14 @@ import { openAddingSongsModal, updateFooter } from "./ui.js";
 
 export let isPlaying = false;
 
+// let song = playlists[currentPlaylist][currentSongIndex];
+// let firstSong = false;
+let song = null;
+
+// let firstSong = true;
+
 export function playCurrent() {
-  const song = playlists[currentPlaylist][currentSongIndex];
+  song = playlists[currentPlaylist][currentSongIndex];
   audioPlayer.src = song.filepath;
   audioPlayer.play();
   isPlaying = true;
@@ -34,10 +40,19 @@ export function playCurrent() {
 // }
 
 export function playSong() {
-    audioPlayer.play();
-    isPlaying = true;
-    updatePlayButton();
-    updateFooter(song);
+    if(song==null){
+      console.log("Iam here")
+      playCurrent();
+    } else{
+          console.log("Song is not null hahahah", song);
+  
+          audioPlayer.play();
+          isPlaying = true;
+          updatePlayButton();
+          updateFooter(song);
+          const total = formatTime(audioPlayer.duration || 0);
+          timeDisplay.textContent = `0:00 / ${total}`;
+    }
 }
 
 export function pauseSong() {
