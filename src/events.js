@@ -1,4 +1,4 @@
-import { playSong, pauseSong, isPlaying, nextSong, prevSong, playCurrent } from "./player.js";
+import {  pauseSong, isPlaying, nextSong, prevSong, playCurrent } from "./player.js";
 import {
   playToggleButton,
   nextButton,

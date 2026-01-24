@@ -18,15 +18,26 @@ export function playCurrent() {
   isPlaying = true;
   updatePlayButton();
   updateFooter(song);
-  const total = formatTime(audio.duration || 0);
+  const total = formatTime(audioPlayer.duration || 0);
   timeDisplay.textContent = `0:00 / ${total}`;
 }
 
-export function playSong(index) {
-  audioPlayer.play();
-  isPlaying = true;
-  updatePlayButton();
-  updateFooter(song);
+// export function playSong(index) {
+//   const song = playlists[currentPlaylist][index];
+//   audioPlayer.src = song.filepath;
+//   audioPlayer.play();
+//   isPlaying = true;
+//   updatePlayButton();
+//   updateFooter(song);
+//   const total = formatTime(audioPlayer.duration || 0);
+//   timeDisplay.textContent = `0:00 / ${total}`;
+// }
+
+export function playSong() {
+    audioPlayer.play();
+    isPlaying = true;
+    updatePlayButton();
+    updateFooter(song);
 }
 
 export function pauseSong() {

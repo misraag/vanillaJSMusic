@@ -1,6 +1,7 @@
-import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist } from "./state.js";
-import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs } from "./dom.js";
+import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex } from "./state.js";
+import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs} from "./dom.js";
 import { switchPlaylist } from "./events.js";
+import { playCurrent, playSong } from "./player.js";
 
 export function renderSongs() {
   console.log("Playlist is " + currentPlaylist);
@@ -29,8 +30,16 @@ export function renderSongs() {
       openAddingSongsModal();
   });
 
+//   const cardSelect = col.querySelector("song-card");
 
-    col.addEventListener("click", () => playSongFromUI(index));
+
+    col.addEventListener("click", () => {
+        console.log("Song index is : ", index);
+        // playSong(song.id);
+        setCurrentSongIndex(index);
+        playCurrent();
+
+    } );
     songGrid.appendChild(col);
   })} else {
     const col = document.createElement("div");
@@ -38,6 +47,7 @@ export function renderSongs() {
     col.innerText="There are no songs in this list"
     songGrid.appendChild(col);
   }
+
 }
 
 
@@ -84,6 +94,8 @@ export function closeAddingSongsModal() {
 cancelAddingSongs.addEventListener("click", ()=> {
     addingSongsModal.classList.add("hidden")
 })
+
+
 
 modalList.addEventListener("click", (e) => {
     const key = e.target.dataset.key;

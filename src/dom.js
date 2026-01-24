@@ -39,3 +39,7 @@ export const modalCreate = document.querySelector("#modalCreate");
 export const footerMenu = document.querySelector("#footerMenu");
 export const cancelAddingSongs = document.getElementById("cancelAddingSongs");
 
+
+//PLAYING SONGS FROM CARDS
+// export const playCardSong = document.querySelector(".song-card");
+

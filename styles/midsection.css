@@ -160,7 +160,7 @@
     visibility: hidden;
     width: 20px;
     /* background-color: red; */
-    background: rgba(0,0,0,0.55);
+    background: rgba(0,0,0,0.22);
     display: flex;
     text-align: center;
     border-radius: 20px;
