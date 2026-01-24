@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     z-index: 20;
+    /* background-color: red; */
 }
 
 .hidden {
@@ -13,18 +14,65 @@
 }
 
 .modal-content {
-    background: #121212;
-    padding: 18px;
+    /* background: #121212; */
+    background-color: black;
+    /* padding: 18px; */
     width: 320px;
+    /* width: 100vh; */
     border-radius: 8px;
     color: white;
     font-family: 'Montserrat', sans-serif;
+    /* background-color: red; */
+    /* padding: 10020px; */
+}
+
+.modal-container{
+    width: 320px;
+    /* padding: 10px; */
+    /* height: 250px; */
+    /* overflow: scroll; */
+    border: 0;
+    /* border-radius: 100px; */
+}
+
+.modal-body{
+    border-bottom: 1px solid #1e1e1e;
+}
+#modalList{
+    height: 150px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+}
+.modalItem{
+    /* margin-bottom: 5px; */
+    cursor: pointer;
+    padding-left: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    /* background-color: #1e1e1e; */
+    border: 0;
+}
+
+.modalItem:hover{
+    background-color: #1e1e1e ;
+}
+
+#modalCreate{
+    cursor: pointer;
+    background-color: rgb(34, 247, 34);
 }
 
 .modal-header {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 14px;
+    padding: 10px;
+    border: 0;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    border-bottom: 1px solid #1e1e1e;
+    /* background-color: red; */
 }
 
 .modal-body input {
@@ -41,6 +89,7 @@
     justify-content: flex-end;
     gap: 8px;
     margin-top: 14px;
+    border: 0;
 }
 
 .modal-footer button {
@@ -55,3 +104,18 @@
 .modal-footer button#savePlaylist {
     background: #52b757;
 }
+
+
+
+
+/* ADDING SONGS TO LIBRARY MODAL */
+
+/* #addingSongsModal{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+} */

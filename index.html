@@ -79,7 +79,7 @@
         <div id="midsection">
             <div id="libraries" class="leftSection">
                 <div class="tileSection">
-                    <div class="tile"><i class="fa-solid fa-house"></i>Home</div>
+                    <div id="homeLibrary" class="tile"><i class="fa-solid fa-house"></i>Home</div>
                     <div class="tile"><i class="fa-solid fa-compass"></i>Explore</div>
                     <div class="tile"><i class="fa-solid fa-bookmark"></i>Library</div>
 
@@ -188,11 +188,19 @@
 
 <!-- MODAL FOR ADDING SONGS TO PLAYLIST -->
  <div id="addingSongsModal" class="modal hidden">
-    <div class="modal-body">
-        <div class="modal-title">Add to playlist</div>
-        <div id="modalList"></div>
-        <div id="modalCreate">+ New Playlist</div>
-    </div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <span>Add to Playlist</span>
+            </div>
+            <div class="modal-body">
+                <div id="modalList"></div>
+            </div>
+            <div class="modal-footer">                
+                <button id="cancelAddingSongs">Cancel</button>
+                <button id="modalCreate">+ New Playlist</button>
+            </div>
+        
+        </div>
 </div>
 
 

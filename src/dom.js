@@ -4,6 +4,7 @@ export const playToggleButton = document.querySelector(".controlPlayButton");
 export const nextButton = document.getElementById("next");
 export const prevButton = document.getElementById("previous");
 
+export const homeLibrary = document.getElementById("homeLibrary");
 export const createPlaylistBtn = document.getElementById("createPlaylist");
 export const dynamicPlaylist = document.getElementById("dynamicPlaylist");
 
@@ -36,3 +37,5 @@ export const addingSongsModal = document.querySelector("#addingSongsModal");
 export const modalList = document.querySelector("#modalList");
 export const modalCreate = document.querySelector("#modalCreate");
 export const footerMenu = document.querySelector("#footerMenu");
+export const cancelAddingSongs = document.getElementById("cancelAddingSongs");
+

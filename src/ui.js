@@ -1,5 +1,5 @@
 import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist } from "./state.js";
-import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal } from "./dom.js";
+import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs } from "./dom.js";
 import { switchPlaylist } from "./events.js";
 
 export function renderSongs() {
@@ -54,6 +54,8 @@ export function renderPlaylists() {
         div.onclick = () => switchPlaylist(name);
         dynamicPlaylist.appendChild(div);
     });
+
+    homeLibrary.onclick = () => switchPlaylist("Home");
 }
 
 export function updateFooter(song) {
@@ -64,11 +66,6 @@ export function updateFooter(song) {
 
 export function openAddingSongsModal() {
     modalList.innerHTML = "";
-
-    // liked first
-    modalList.innerHTML += `
-        <div class="modalItem" data-key="Liked">Liked Songs</div>
-    `;
 
     // custom playlists next
     userPlaylists.forEach(name => {
@@ -83,6 +80,10 @@ export function openAddingSongsModal() {
 export function closeAddingSongsModal() {
     addingSongsModal.classList.add("hidden");
 }
+
+cancelAddingSongs.addEventListener("click", ()=> {
+    addingSongsModal.classList.add("hidden")
+})
 
 modalList.addEventListener("click", (e) => {
     const key = e.target.dataset.key;
