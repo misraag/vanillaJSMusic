@@ -39,9 +39,12 @@
     border-bottom: 1px solid #1e1e1e;
 }
 #modalList{
-    height: 150px;
+    height: 160px;
     overflow-y: scroll;
     scrollbar-width: thin;
+    scrollbar-color: #555 #1a1a1a;
+    background-color: transparent;
+    /* font-weight: bold; */
 }
 .modalItem{
     /* margin-bottom: 5px; */
@@ -88,8 +91,9 @@
     display: flex;
     justify-content: flex-end;
     gap: 8px;
-    margin-top: 14px;
+    /* margin-top: 5px; */
     border: 0;
+    padding-bottom: 18px;
 }
 
 .modal-footer button {

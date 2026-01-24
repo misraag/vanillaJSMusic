@@ -153,11 +153,18 @@
     position: absolute;
     top: 0;
     right: 0;
-    margin-right: 30px;
-    margin-top: 15px;
+    margin-right: 25px;
+    margin-top: 12px;
     background-color: transparent;
-    font-size: 20px;
+    font-size: 17px;
     visibility: hidden;
+    width: 20px;
+    /* background-color: red; */
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    text-align: center;
+    border-radius: 20px;
+    padding: 2px;
 }
 
 
