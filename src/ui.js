@@ -1,4 +1,4 @@
-import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView } from "./state.js";
+import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView, selectedArtist, setSelectedArtist } from "./state.js";
 import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs} from "./dom.js";
 import { switchPlaylist } from "./events.js";
 import { playCurrent, playSong } from "./player.js";
@@ -21,11 +21,19 @@ export function renderSongs(filterText = "") {
   console.log("Playlist is " + currentPlaylist);
 
   const allSongs = playlists[currentPlaylist] || [];
-  const search = filterText.toLowerCase();
+const search = filterText.toLowerCase();
 
-  const songs = allSongs.filter(song =>
-    song.songName.toLowerCase().includes(search)
-  );
+let songs = allSongs;
+
+// 🔹 Artist filter (from Explore)
+if (selectedArtist) {
+  songs = songs.filter(song => song.artist === selectedArtist);
+}
+
+// 🔹 Search filter
+songs = songs.filter(song =>
+  song.songName.toLowerCase().includes(search)
+);
 
   songGrid.innerHTML = "";
 
@@ -67,6 +75,8 @@ export function renderSongs(filterText = "") {
     col.innerText = "No matching songs found";
     songGrid.appendChild(col);
   }
+  setSelectedArtist(null);
+
 }
 
 function renderExploreSection(title, songs) {
@@ -141,10 +151,69 @@ function renderExploreView() {
   songGrid.innerHTML = "";
 
   renderExploreSection("🔥Trending  Now", getTrendingSongs());
+
+  renderArtistSection(); 
+
   renderExploreSection("😌Just Vibes", filterByMood("Chill"));
   renderExploreSection("❤️Romance Unplugged", filterByMood("Love"));
   renderExploreSection("💔Heavy Hearts ", filterByMood("Sad"))
 }
+
+
+function renderArtistSection() {
+  const artists = getUniqueArtists();
+
+  if (!artists.length) return;
+
+  const section = document.createElement("div");
+  section.className = "exploreSection";
+
+  section.innerHTML = `
+    <h4>🎤 Artists You May Like</h4>
+    <div class="artistRow"></div>
+  `;
+
+  const row = section.querySelector(".artistRow");
+
+  artists.forEach(artist => {
+    const div = document.createElement("div");
+    div.className = "artistCard";
+
+    div.innerHTML = `
+      <img src="${artist.image}" />
+      <div class="artistName truncate">${artist.name}</div>
+    `;
+
+    div.onclick = () => {
+      setSelectedArtist(artist.name);
+      setView("HOME");
+      renderView();
+    };
+
+    row.appendChild(div);
+  });
+
+  songGrid.appendChild(section);
+}
+
+
+function getUniqueArtists() {
+  const map = new Map();
+
+  playlists.Home.forEach(song => {
+    if (!song.artist) return;
+
+    if (!map.has(song.artist)) {
+      map.set(song.artist, {
+        name: song.artist,
+        image: song.artistImage ? song.artistImage : song.coverPath
+      });
+    }
+  });
+
+  return Array.from(map.values()).slice(0, 8);
+}
+
 
 
 
