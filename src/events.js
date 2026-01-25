@@ -1,4 +1,4 @@
-import {  pauseSong, isPlaying, nextSong, prevSong, playCurrent, playSong } from "./player.js";
+import {  pauseSong, isPlaying, nextSong, prevSong, playCurrent, playSong, setVolume } from "./player.js";
 import {
   playToggleButton,
   nextButton,
@@ -7,9 +7,13 @@ import {
   savePlaylistBtn,
   cancelPlaylistBtn,
   footerMenu,
+  volumeSlider,
+  volumeIcon,
+  audioPlayer,
+  repeatButton,
 } from "./dom.js";
 import { renderPlaylists, renderSongs } from "./ui.js";
-import { setCurrentPlaylist, setModalTarget, userPlaylists } from "./state.js";
+import { isRepeatOn, setCurrentPlaylist, setModalTarget, toggleRepeat, userPlaylists } from "./state.js";
 
 import {
   playlists,
@@ -18,12 +22,17 @@ import {
   setCurrentSongIndex,
 } from "./state.js";
 
+let lastVolume = 50;
+
 export function initEvents() {
   playToggleButton.onclick = () => isPlaying ? pauseSong() : playSong();
 
   nextButton.onclick = () => nextSong();
 
   prevButton.onclick = () => prevSong();
+
+  console.log(lastVolume)
+  setVolume(lastVolume);
 }
 
 export function switchPlaylist(name) {
@@ -60,6 +69,29 @@ export function initPlaylistEvents() {
   };
 }
 
+
+volumeSlider.addEventListener("input", ()=> {
+  setVolume(volumeSlider.value);
+})
+
+
+
+volumeIcon.addEventListener("click", () => {
+    if (audioPlayer.volume > 0) {
+        lastVolume = audioPlayer.volume;
+        setVolume(0);
+        volumeSlider.value = 0;
+    } else {
+        setVolume(lastVolume * 100);
+        volumeSlider.value = lastVolume * 100;
+    }
+});
+
+repeatButton.addEventListener("click", ()=>{
+  toggleRepeat();
+
+  repeatButton.classList.toggle("active-repeat", isRepeatOn);
+})
 
 
 

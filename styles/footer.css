@@ -153,3 +153,13 @@ i.controlPlayButton {
     cursor: pointer;
     color: #212121;
 }
+
+.fa-repeat{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.fa-repeat.active-repeat{
+   color: #d11c19; 
+    opacity: 1;
+}

@@ -4,8 +4,9 @@ import {
   currentSongIndex,
   setCurrentSongIndex,
   setModalTarget,
+  isRepeatOn,
 } from "./state.js";
-import { audioPlayer, progressBar, seekBar, timeDisplay } from "./dom.js";
+import { audioPlayer, progressBar, repeatButton, seekBar, timeDisplay, volumeIcon, volumeSlider } from "./dom.js";
 import { playToggleButton } from "./dom.js";
 import { openAddingSongsModal, updateFooter } from "./ui.js";
 
@@ -131,5 +132,33 @@ audioPlayer.onloadedmetadata = () => {
 };
 
 audioPlayer.onended = () => {
-  nextSong();
+    if (isRepeatOn) {
+        audioPlayer.currentTime = 0;
+        audioPlayer.play();
+    } else {
+        nextSong();
+    }
 };
+
+
+export function setVolume(value) {
+  audioPlayer.volume = value/100;
+  updateVolumeIcon(audioPlayer.volume);
+  volumeSlider.value = value;
+}
+
+function updateVolumeIcon(vol) {
+    volumeIcon.classList.remove(
+        "fa-volume-high",
+        "fa-volume-low",
+        "fa-volume-xmark"
+    );
+
+    if (vol === 0) {
+        volumeIcon.classList.add("fa-volume-xmark");
+    } else if (vol < 0.5) {
+        volumeIcon.classList.add("fa-volume-low");
+    } else {
+        volumeIcon.classList.add("fa-volume-high");
+    }
+}

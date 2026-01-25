@@ -151,6 +151,12 @@ export const playlists = {
   Liked: [],
 };
 
+export let isRepeatOn = false;
+
+export function toggleRepeat() {
+  isRepeatOn = !isRepeatOn;
+}
+
 export const userPlaylists = ["Liked"];
 
 export function setCurrentSongIndex(i) {

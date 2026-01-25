@@ -18,6 +18,7 @@ export const footerSongImage = document.querySelector(".songImage img");
 // Volume Section
 export const volumeSlider = document.getElementById("myVolumeBar");
 export const repeatButton = document.querySelector(".fa-repeat");
+export const volumeIcon = document.getElementById("volumeIcon");
 
 // TIMER SECTION
 export const timeDisplay = document.querySelector(".songTimer");
