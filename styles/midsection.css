@@ -147,6 +147,9 @@
   font-size: 12px;
   color: #aaa;
   background-color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .songMenu{

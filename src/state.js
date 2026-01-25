@@ -5,7 +5,7 @@ export const playlists = {
   Home: [ 
   {
     id: 1,
-    songName: "Darkhaast",
+    songName: "Darkhast",
     artist: "Arijit Singh",
     album: "Shivaay",
     movie: "Shivaay",

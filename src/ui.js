@@ -17,6 +17,7 @@ export function renderSongs(filterText = "") {
 
   if (songs.length !== 0) {
     songs.forEach((song) => {
+      console.log("Logging songs, ", song);
       const col = document.createElement("div");
       col.className = "col-6 col-md-4 col-lg-2 songGridCol";
 
@@ -24,7 +25,7 @@ export function renderSongs(filterText = "") {
         <div class="song-card" data-id="${song.id}">
           <img src="${song.coverPath}" alt="${song.songName}">
           <div class="song-title">${song.songName}</div>
-          <div class="song-sub">Song</div>
+          <div class="song-sub">${song.artist}</div>
           <i class="fa-solid fa-ellipsis-vertical songMenu"></i>
         </div>
       `;
@@ -75,7 +76,7 @@ export function renderPlaylists() {
 
 export function updateFooter(song) {
     footerSongTitle.textContent = song.songName;
-    footerSongDescription.textContent = song.songName;
+    footerSongDescription.textContent = `${song.artist} | ${song.album} | ${song.language}`;
     footerSongImage.src = song.coverPath;
 }
 
