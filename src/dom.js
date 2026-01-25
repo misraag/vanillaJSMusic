@@ -5,6 +5,8 @@ export const nextButton = document.getElementById("next");
 export const prevButton = document.getElementById("previous");
 
 export const homeLibrary = document.getElementById("homeLibrary");
+export const exploreBtn = document.getElementById("explore");
+export const libraryBtn = document.getElementById("library");
 export const createPlaylistBtn = document.getElementById("createPlaylist");
 export const dynamicPlaylist = document.getElementById("dynamicPlaylist");
 

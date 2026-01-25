@@ -12,9 +12,12 @@ import {
   audioPlayer,
   repeatButton,
   searchBar,
+  homeLibrary,
+  exploreBtn,
+  libraryBtn,
 } from "./dom.js";
-import { renderPlaylists, renderSongs } from "./ui.js";
-import { isRepeatOn, setCurrentPlaylist, setModalTarget, toggleRepeat, userPlaylists } from "./state.js";
+import { renderPlaylists, renderSongs, renderView } from "./ui.js";
+import { currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setView, toggleRepeat, userPlaylists } from "./state.js";
 
 import {
   playlists,
@@ -99,5 +102,24 @@ searchBar.addEventListener('input', ()=>{
   const value = searchBar.value.trim();
   renderSongs(value);
 })
+
+// exploreButton.addEventListener('click', ()=>{
+
+// })
+
+homeLibrary.addEventListener("click", () => {
+  setView("HOME");
+  renderView();
+});
+
+exploreBtn.addEventListener("click", () => {
+  setView("EXPLORE");
+  renderView();
+});
+
+libraryBtn.addEventListener("click", () => {
+  setView("LIBRARY");
+  renderView();
+});
 
 

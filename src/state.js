@@ -415,6 +415,12 @@ export const playlists = {
   Liked: [],
 };
 
+export let currentView = "HOME";
+
+export function setView(view) {
+  currentView = view
+}
+
 export let isRepeatOn = false;
 
 export function toggleRepeat() {

@@ -1,7 +1,21 @@
-import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex } from "./state.js";
+import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView } from "./state.js";
 import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs} from "./dom.js";
 import { switchPlaylist } from "./events.js";
 import { playCurrent, playSong } from "./player.js";
+
+export function renderView() {
+  if (currentView === "HOME") {
+    renderSongs();
+  }
+
+  if (currentView === "LIBRARY") {
+    renderLibraryView();
+  }
+
+  if (currentView === "EXPLORE") {
+    renderExploreView();
+  }
+}
 
 export function renderSongs(filterText = "") {
   console.log("Playlist is " + currentPlaylist);
@@ -17,7 +31,7 @@ export function renderSongs(filterText = "") {
 
   if (songs.length !== 0) {
     songs.forEach((song) => {
-      console.log("Logging songs, ", song);
+      // console.log("Logging songs, ", song);
       const col = document.createElement("div");
       col.className = "col-6 col-md-4 col-lg-2 songGridCol";
 
@@ -54,6 +68,101 @@ export function renderSongs(filterText = "") {
     songGrid.appendChild(col);
   }
 }
+
+function renderExploreSection(title, songs) {
+  if (!songs.length) return;
+
+  const section = document.createElement("div");
+  section.className = "exploreSection";
+
+  const heading = document.createElement("h4");
+  heading.innerText = title;
+
+  const row = document.createElement("div");
+  row.className = "row exploreRow";
+
+  songs.slice(0, 6).forEach(song => {
+    const col = document.createElement("div");
+    col.className = "col-6 col-md-4 col-lg-2 exploreCol";
+
+    col.innerHTML = `
+      <div class="song-explore" data-id="${song.id}">
+        <img src="${song.coverPath}">
+        <div class="song-title">${song.songName}</div>
+        <div class="song-sub">${song.artist}</div>
+        <i class="fa-solid fa-ellipsis-vertical songMenu"></i>
+      </div>
+    `;
+
+    const menu = col.querySelector(".songMenu");
+      menu.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setModalTarget(song.id);
+        openAddingSongsModal();
+      });
+
+    col.addEventListener("click", () => {
+      setCurrentSongIndex(
+        playlists.Home.findIndex(s => s.id === song.id)
+      );
+      playCurrent();
+    });
+
+    row.appendChild(col);
+  });
+
+  section.appendChild(heading);
+  section.appendChild(row);
+  songGrid.appendChild(section);
+}
+
+function renderLibraryView() {
+  songGrid.innerHTML = "";
+
+  Object.keys(playlists).forEach(key => {
+    if (key === "Home") return;
+
+    const div = document.createElement("div");
+    div.className = "libraryCard";
+    div.innerText = key;
+
+    div.onclick = () => {
+      // switch to that playlist
+      setCurrentSongIndex(key);
+      setView("HOME");
+      renderView();
+    };
+
+    songGrid.appendChild(div);
+  });
+}
+
+function renderExploreView() {
+  songGrid.innerHTML = "";
+
+  renderExploreSection("🔥Trending  Now", getTrendingSongs());
+  renderExploreSection("😌Just Vibes", filterByMood("Chill"));
+  renderExploreSection("❤️Romance Unplugged", filterByMood("Love"));
+  renderExploreSection("💔Heavy Hearts ", filterByMood("Sad"))
+}
+
+
+
+
+
+
+function getTrendingSongs() {
+  return [...playlists.Home]
+    .sort((a, b) => b.popularity - a.popularity);
+}
+
+function filterByMood(mood) {
+  return playlists.Home.filter(song =>
+    song.mood && song.mood.includes(mood)
+  );
+}
+
+
 
 
 

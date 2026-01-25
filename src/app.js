@@ -1,9 +1,11 @@
-import { renderSongs, renderPlaylists } from "./ui.js";
+import { renderSongs, renderPlaylists, renderView } from "./ui.js";
 import { initEvents, initPlaylistEvents } from "./events.js";
-import { loadState } from "./state.js";
+import { loadState, setView } from "./state.js";
 
 loadState();
 renderPlaylists();
-renderSongs();
+// renderSongs()
+setView("HOME");
+renderView();
 initEvents();
 initPlaylistEvents();
