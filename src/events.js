@@ -11,6 +11,7 @@ import {
   volumeIcon,
   audioPlayer,
   repeatButton,
+  searchBar,
 } from "./dom.js";
 import { renderPlaylists, renderSongs } from "./ui.js";
 import { isRepeatOn, setCurrentPlaylist, setModalTarget, toggleRepeat, userPlaylists } from "./state.js";
@@ -37,6 +38,7 @@ export function initEvents() {
 
 export function switchPlaylist(name) {
   setCurrentPlaylist(name);
+  searchBar.value="";
   renderSongs();
 }
 
@@ -93,6 +95,9 @@ repeatButton.addEventListener("click", ()=>{
   repeatButton.classList.toggle("active-repeat", isRepeatOn);
 })
 
-
+searchBar.addEventListener('input', ()=>{
+  const value = searchBar.value.trim();
+  renderSongs(value);
+})
 
 

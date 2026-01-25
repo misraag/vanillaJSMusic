@@ -3,52 +3,57 @@ import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, play
 import { switchPlaylist } from "./events.js";
 import { playCurrent, playSong } from "./player.js";
 
-export function renderSongs() {
+export function renderSongs(filterText = "") {
   console.log("Playlist is " + currentPlaylist);
-  const songs = playlists[currentPlaylist];
+
+  const allSongs = playlists[currentPlaylist] || [];
+  const search = filterText.toLowerCase();
+
+  const songs = allSongs.filter(song =>
+    song.songName.toLowerCase().includes(search)
+  );
 
   songGrid.innerHTML = "";
 
-  if(songs && songs.length!=0) {
-    songs.forEach((song, index) => {
-    const col = document.createElement("div");
-    col.className = "col-6 col-md-4 col-lg-2 songGridCol";
+  if (songs.length !== 0) {
+    songs.forEach((song) => {
+      const col = document.createElement("div");
+      col.className = "col-6 col-md-4 col-lg-2 songGridCol";
 
-    col.innerHTML = `
-    <div class="song-card" data-id="${song.id}">
-      <img src="${song.coverPath}" alt="${song.songName}">
-      <div class="song-title">${song.songName}</div>
-      <div class="song-sub">Song</div>
-      <i class="fa-solid fa-ellipsis-vertical songMenu"></i>
-    </div>
-  `;
+      col.innerHTML = `
+        <div class="song-card" data-id="${song.id}">
+          <img src="${song.coverPath}" alt="${song.songName}">
+          <div class="song-title">${song.songName}</div>
+          <div class="song-sub">Song</div>
+          <i class="fa-solid fa-ellipsis-vertical songMenu"></i>
+        </div>
+      `;
 
-  const menu = col.querySelector(".songMenu");
-  menu.addEventListener("click", (e) => {
-      e.stopPropagation(); 
-      setModalTarget(song.id);
-      openAddingSongsModal();
-  });
+      const menu = col.querySelector(".songMenu");
+      menu.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setModalTarget(song.id);
+        openAddingSongsModal();
+      });
 
-//   const cardSelect = col.querySelector("song-card");
-
-
-    col.addEventListener("click", () => {
-        console.log("Song index is : ", index);
-        // playSong(song.id);
-        setCurrentSongIndex(index);
+      col.addEventListener("click", () => {
+        const originalIndex = allSongs.findIndex(
+          s => s.id === song.id
+        );
+        setCurrentSongIndex(originalIndex);
         playCurrent();
+      });
 
-    } );
-    songGrid.appendChild(col);
-  })} else {
+      songGrid.appendChild(col);
+    });
+  } else {
     const col = document.createElement("div");
     col.className = "m-auto";
-    col.innerText="There are no songs in this list"
+    col.innerText = "No matching songs found";
     songGrid.appendChild(col);
   }
-
 }
+
 
 
 export function renderPlaylists() {
