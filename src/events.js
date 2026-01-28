@@ -15,6 +15,7 @@ import {
   homeLibrary,
   exploreBtn,
   libraryBtn,
+  backBtn,
 } from "./dom.js";
 import { renderPlaylists, renderSongs, renderView } from "./ui.js";
 import { currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setView, toggleRepeat, userPlaylists } from "./state.js";
@@ -122,4 +123,7 @@ libraryBtn.addEventListener("click", () => {
   renderView();
 });
 
-
+backBtn.addEventListener("click", ()=> {
+  setView("EXPLORE");
+  renderView();
+});

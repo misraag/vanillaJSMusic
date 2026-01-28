@@ -440,8 +440,10 @@ export const playlists = {
 };
 
 export let currentView = "HOME";
+export let previousView = null;
 
 export function setView(view) {
+  previousView = currentView;
   currentView = view
 }
 

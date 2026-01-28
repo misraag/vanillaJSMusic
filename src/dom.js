@@ -49,3 +49,5 @@ export const cancelAddingSongs = document.getElementById("cancelAddingSongs");
 //Search functionality
 // export const searchBar = document.querySelector(".searchBar");
 
+export const backBtn = document.querySelector("#backBtn");
+

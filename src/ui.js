@@ -1,11 +1,12 @@
 import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView, selectedArtist, setSelectedArtist } from "./state.js";
-import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs} from "./dom.js";
+import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs, backBtn} from "./dom.js";
 import { switchPlaylist } from "./events.js";
 import { playCurrent, playSong } from "./player.js";
 
 export function renderView() {
   if (currentView === "HOME") {
     renderSongs();
+    // updateBackButtonVisibility();
   }
 
   if (currentView === "LIBRARY") {
@@ -15,6 +16,9 @@ export function renderView() {
   if (currentView === "EXPLORE") {
     renderExploreView();
   }
+
+  updateBackButtonVisibility();
+  
 }
 
 export function renderSongs(filterText = "") {
@@ -27,6 +31,7 @@ let songs = allSongs;
 
 // 🔹 Artist filter (from Explore)
 if (selectedArtist) {
+  console.log("Filtering by artist: ", selectedArtist);
   songs = songs.filter(song => song.artist === selectedArtist);
 }
 
@@ -75,8 +80,8 @@ songs = songs.filter(song =>
     col.innerText = "No matching songs found";
     songGrid.appendChild(col);
   }
-  setSelectedArtist(null);
-
+  // setSelectedArtist(null);
+  // updateBackButtonVisibility();
 }
 
 function renderExploreSection(title, songs) {
@@ -120,7 +125,7 @@ function renderExploreSection(title, songs) {
 
     row.appendChild(col);
   });
-
+  
   section.appendChild(heading);
   section.appendChild(row);
   songGrid.appendChild(section);
@@ -150,13 +155,19 @@ function renderLibraryView() {
 function renderExploreView() {
   songGrid.innerHTML = "";
 
-  renderExploreSection("🔥Trending  Now", getTrendingSongs());
+  // const backButton = document.createElement("div");
+  // backButton.className = "backBtn";
+  // backButton.innerHTML = `<i id="backArrow" class="fa-solid fa-arrow-left"></i>`;
+
+  // songGrid.appendChild(backButton);
+
+  renderExploreSection("Trending  Now....", getTrendingSongs());
 
   renderArtistSection(); 
 
-  renderExploreSection("😌Just Vibes", filterByMood("Chill"));
-  renderExploreSection("❤️Romance Unplugged", filterByMood("Love"));
-  renderExploreSection("💔Heavy Hearts ", filterByMood("Sad"))
+  renderExploreSection("Just Vibes....", filterByMood("Chill"));
+  renderExploreSection("Romance Unplugged....", filterByMood("Love"));
+  renderExploreSection("Heavy Hearts....", filterByMood("Sad"))
 }
 
 
@@ -185,6 +196,7 @@ function renderArtistSection() {
     `;
 
     div.onclick = () => {
+      console.log("Selected artist: ", artist.name);
       setSelectedArtist(artist.name);
       setView("HOME");
       renderView();
@@ -297,6 +309,28 @@ modalCreate.addEventListener("click", () => {
     renderPlaylists();
     closeAddingSongsModal(); 
 });
+
+backBtn.addEventListener("click", () => {
+  setSelectedArtist(null);
+  setView("EXPLORE");
+  renderView();
+});
+
+
+
+function updateBackButtonVisibility() {
+  // if (!backBtn) return;
+
+  // SHOW only when artist is selected and we are in HOME view
+  if (currentView === "HOME" && selectedArtist) {
+    console.log("Showing back button");
+    backBtn.classList.remove("hidden");
+  } else {
+    backBtn.classList.add("hidden");
+  }
+}
+
+
 
 
 
