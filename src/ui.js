@@ -1,5 +1,5 @@
-import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView, selectedArtist, setSelectedArtist } from "./state.js";
-import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs, backBtn} from "./dom.js";
+import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView, selectedArtist, setSelectedArtist, currentSongIndex, setCurrentSongId, currentSongId, setPlayQueue } from "./state.js";
+import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs, backBtn, songCard} from "./dom.js";
 import { switchPlaylist } from "./events.js";
 import { playCurrent, playSong } from "./player.js";
 
@@ -40,6 +40,8 @@ songs = songs.filter(song =>
   song.songName.toLowerCase().includes(search)
 );
 
+setPlayQueue(songs);
+
   songGrid.innerHTML = "";
 
   if (songs.length !== 0) {
@@ -68,8 +70,9 @@ songs = songs.filter(song =>
         const originalIndex = allSongs.findIndex(
           s => s.id === song.id
         );
-        setCurrentSongIndex(originalIndex);
+        setCurrentSongId(song.id);
         playCurrent();
+
       });
 
       songGrid.appendChild(col);
@@ -82,6 +85,8 @@ songs = songs.filter(song =>
   }
   // setSelectedArtist(null);
   // updateBackButtonVisibility();
+  updateActiveSongUI();
+
 }
 
 function renderExploreSection(title, songs) {
@@ -117,10 +122,10 @@ function renderExploreSection(title, songs) {
       });
 
     col.addEventListener("click", () => {
-      setCurrentSongIndex(
-        playlists.Home.findIndex(s => s.id === song.id)
-      );
+      setPlayQueue(songs);      // the explore section list
+      setCurrentSongId(song.id);
       playCurrent();
+
     });
 
     row.appendChild(col);
@@ -329,6 +334,19 @@ function updateBackButtonVisibility() {
     backBtn.classList.add("hidden");
   }
 }
+
+export function updateActiveSongUI() {
+  if (!currentSongId) return;
+
+  document.querySelectorAll(".song-card").forEach(card => {
+    card.classList.toggle(
+      "active",
+      Number(card.dataset.id) === currentSongId
+    );
+  });
+}
+
+
 
 
 

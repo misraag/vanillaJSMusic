@@ -3,6 +3,7 @@ export const audioPlayer = document.getElementById("audioPlayer");
 export const playToggleButton = document.querySelector(".controlPlayButton");
 export const nextButton = document.getElementById("next");
 export const prevButton = document.getElementById("previous");
+export const songCard = document.querySelector(".song-card");
 
 export const homeLibrary = document.getElementById("homeLibrary");
 export const exploreBtn = document.getElementById("explore");

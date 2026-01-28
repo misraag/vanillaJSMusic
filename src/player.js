@@ -5,10 +5,14 @@ import {
   setCurrentSongIndex,
   setModalTarget,
   isRepeatOn,
+  getCurrentSong,
+  setCurrentSongId,
+  currentSongId,
+  playQueue,
 } from "./state.js";
 import { audioPlayer, progressBar, repeatButton, seekBar, timeDisplay, volumeIcon, volumeSlider } from "./dom.js";
 import { playToggleButton } from "./dom.js";
-import { openAddingSongsModal, updateFooter } from "./ui.js";
+import { openAddingSongsModal, updateActiveSongUI, updateFooter } from "./ui.js";
 
 export let isPlaying = false;
 
@@ -19,12 +23,15 @@ let song = null;
 // let firstSong = true;
 
 export function playCurrent() {
-  song = playlists[currentPlaylist][currentSongIndex];
+  // song = playlists[currentPlaylist][currentSongIndex];
+  song = getCurrentSong();
+  if(!song) return;
   audioPlayer.src = song.filepath;
   audioPlayer.play();
   isPlaying = true;
   updatePlayButton();
   updateFooter(song);
+  updateActiveSongUI()
   const total = formatTime(audioPlayer.duration || 0);
   timeDisplay.textContent = `0:00 / ${total}`;
 }
@@ -43,6 +50,7 @@ export function playCurrent() {
 export function playSong() {
     if(song==null){
       console.log("Iam here")
+      setCurrentSongId(1);
       playCurrent();
     } else{
           console.log("Song is not null hahahah", song);
@@ -68,16 +76,25 @@ export function togglePlay() {
 }
 
 export function nextSong() {
-  const length = playlists[currentPlaylist].length;
-  setCurrentSongIndex((currentSongIndex + 1) % length);
+  if (!playQueue.length || !currentSongId) return;
+
+  const index = playQueue.findIndex(s => s.id === currentSongId);
+  const next = playQueue[(index + 1) % playQueue.length];
+
+  setCurrentSongId(next.id);
   playCurrent();
 }
 
 export function prevSong() {
-  const length = playlists[currentPlaylist].length;
-  setCurrentSongIndex((currentSongIndex - 1 + length) % length);
+  if (!playQueue.length || !currentSongId) return;
+
+  const index = playQueue.findIndex(s => s.id === currentSongId);
+  const prev = playQueue[(index - 1 + playQueue.length) % playQueue.length];
+
+  setCurrentSongId(prev.id);
   playCurrent();
 }
+
 
 function updatePlayButton() {
   if (isPlaying) {

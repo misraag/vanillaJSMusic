@@ -194,7 +194,7 @@
 }
 
 .song-card.active img {
-  outline: 2px solid #1db954;
+  outline: 3px solid rgb(12, 244, 55);
 }
 
 
@@ -301,7 +301,7 @@
 }
 
 .song-explore.active img {
-  outline: 2px solid #1db954;
+  outline: 2px solid rgb(192, 22, 22);
 }
 
 /* ARTIST */

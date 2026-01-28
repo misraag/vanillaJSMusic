@@ -462,6 +462,26 @@ export function toggleRepeat() {
 
 export const userPlaylists = ["Liked"];
 
+export let currentSongId = null;
+
+export function setCurrentSongId(id) {
+  currentSongId = id;
+}
+
+export let playQueue = [];
+
+export function setPlayQueue(list) {
+  playQueue = list;
+}
+
+export function getCurrentSong() {
+  if (!currentSongId) return null;
+  return playQueue.find(song => song.id === currentSongId);
+}
+
+
+
+
 export function setCurrentSongIndex(i) {
     currentSongIndex = i;
 }
@@ -469,6 +489,8 @@ export function setCurrentSongIndex(i) {
 export function setCurrentPlaylist(playlistName) {
   currentPlaylist = playlistName;
 }
+
+
 
 //ADDING SONGS TO PLAYLIST
 export let modalTargetSong = null;
