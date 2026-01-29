@@ -1,4 +1,11 @@
-import {  pauseSong, isPlaying, nextSong, prevSong, playCurrent, playSong, setVolume } from "./player.js";
+import {
+  pauseSong,
+  isPlaying,
+  nextSong,
+  prevSong,
+  playSong,
+  setVolume,
+} from "./player.js";
 import {
   playToggleButton,
   nextButton,
@@ -6,7 +13,6 @@ import {
   createPlaylistBtn,
   savePlaylistBtn,
   cancelPlaylistBtn,
-  footerMenu,
   volumeSlider,
   volumeIcon,
   audioPlayer,
@@ -18,31 +24,39 @@ import {
   backBtn,
   logoSection,
 } from "./dom.js";
-import { openAddingSongsModal, renderPlaylists, renderSongs, renderView } from "./ui.js";
-import { createPlaylist, currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setSelectedArtist, setView, toggleRepeat } from "./state.js";
-
+import { renderPlaylists, renderSongs, renderView } from "./ui.js";
 import {
-  currentSongIndex,
-  setCurrentSongIndex,
+  createPlaylist,
+  isRepeatOn,
+  setCurrentPlaylist,
+  setSelectedArtist,
+  setView,
+  toggleRepeat,
 } from "./state.js";
-import { playlists, userPlaylists } from "./playlists.js";
+import { playlists } from "./playlists.js";
+
 
 let lastVolume = 50;
 
+const VIEWS = {
+  HOME: "HOME",
+  EXPLORE: "EXPLORE",
+  LIBRARY: "LIBRARY",
+};
+
 export function initEvents() {
-  playToggleButton.onclick = () => isPlaying ? pauseSong() : playSong();
+  playToggleButton.onclick = () => (isPlaying ? pauseSong() : playSong());
 
   nextButton.onclick = () => nextSong();
 
   prevButton.onclick = () => prevSong();
 
-  console.log(lastVolume)
   setVolume(lastVolume);
 }
 
 export function switchPlaylist(name) {
   setCurrentPlaylist(name);
-  searchBar.value="";
+  searchBar.value = "";
   renderSongs();
 }
 
@@ -66,71 +80,59 @@ export function initPlaylistEvents() {
       return;
     }
 
-  
     createPlaylist(name);
 
     playlistModal.classList.add("hidden");
     renderPlaylists();
-    renderSongs();
   };
 }
 
 
-volumeSlider.addEventListener("input", ()=> {
+// VOLUME CONTROL EVENTS----------------------
+volumeSlider.addEventListener("input", () => {
   setVolume(volumeSlider.value);
-})
-
-
+});
 
 volumeIcon.addEventListener("click", () => {
-    if (audioPlayer.volume > 0) {
-        lastVolume = audioPlayer.volume;
-        setVolume(0);
-        volumeSlider.value = 0;
-    } else {
-        setVolume(lastVolume * 100);
-        volumeSlider.value = lastVolume * 100;
-    }
+  if (audioPlayer.volume > 0) {
+    lastVolume = audioPlayer.volume;
+    setVolume(0);
+    volumeSlider.value = 0;
+  } else {
+    setVolume(lastVolume * 100);
+    volumeSlider.value = lastVolume * 100;
+  }
 });
 
-repeatButton.addEventListener("click", ()=>{
+repeatButton.addEventListener("click", () => {
   toggleRepeat();
-
   repeatButton.classList.toggle("active-repeat", isRepeatOn);
-})
+});
 
-searchBar.addEventListener('input', ()=>{
+
+// NAVIGATION EVENTS----------------------
+function navigateTo(view) {
+  setView(view);
+  renderView();
+}
+
+homeLibrary.addEventListener("click", () => navigateTo(VIEWS.HOME));
+exploreBtn.addEventListener("click", () => navigateTo(VIEWS.EXPLORE));
+libraryBtn.addEventListener("click", () => navigateTo(VIEWS.LIBRARY));
+backBtn.addEventListener("click", () => navigateTo(VIEWS.EXPLORE));
+
+
+
+
+// NAVBAR EVENTS----------------------------
+searchBar.addEventListener("input", () => {
   const value = searchBar.value.trim();
   renderSongs(value);
-})
-
-// exploreButton.addEventListener('click', ()=>{
-
-// })
-
-homeLibrary.addEventListener("click", () => {
-  setView("HOME");
-  renderView();
 });
 
-exploreBtn.addEventListener("click", () => {
-  setView("EXPLORE");
-  renderView();
-});
 
-libraryBtn.addEventListener("click", () => {
-  setView("LIBRARY");
-  renderView();
-});
-
-backBtn.addEventListener("click", ()=> {
-  setView("EXPLORE");
-  renderView();
-});
-
-logoSection.addEventListener("click", ()=> {
+logoSection.addEventListener("click", () => {
   setCurrentPlaylist("Home");
   setSelectedArtist(null);
-  setView("HOME");
-  renderView();
-})
+  navigateTo("HOME");
+});

@@ -1,7 +1,34 @@
-import { currentPlaylist, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView, selectedArtist, setSelectedArtist, currentSongIndex, setCurrentSongId, currentSongId, setPlayQueue, renamePlaylist, deletePlaylist, removeSongFromPlaylist } from "./state.js";
-import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs, backBtn, songCard} from "./dom.js";
+import {
+  currentPlaylist,
+  setModalTarget,
+  addSongToPlaylist,
+  modalTargetSong,
+  createPlaylist,
+  setView,
+  currentView,
+  selectedArtist,
+  setSelectedArtist,
+  setCurrentSongId,
+  currentSongId,
+  setPlayQueue,
+  renamePlaylist,
+  deletePlaylist,
+  removeSongFromPlaylist,
+} from "./state.js";
+import {
+  songGrid,
+  footerSongTitle,
+  footerSongDescription,
+  footerSongImage,
+  modalList,
+  modalCreate,
+  addingSongsModal,
+  homeLibrary,
+  cancelAddingSongs,
+  backBtn,
+} from "./dom.js";
 import { switchPlaylist } from "./events.js";
-import { playCurrent, playSong } from "./player.js";
+import { playCurrent } from "./player.js";
 import { playlists, userPlaylists } from "./playlists.js";
 
 const gradientPresets = [
@@ -9,14 +36,12 @@ const gradientPresets = [
   "linear-gradient(135deg, #1db954, #1ed760)",
   "linear-gradient(135deg, #ff512f, #dd2476)",
   "linear-gradient(135deg, #00c6ff, #0072ff)",
-  "linear-gradient(135deg, #f7971e, #ffd200)"
+  "linear-gradient(135deg, #f7971e, #ffd200)",
 ];
-
 
 export function renderView() {
   if (currentView === "HOME") {
     renderSongs();
-    // updateBackButtonVisibility();
   }
 
   if (currentView === "LIBRARY") {
@@ -28,35 +53,32 @@ export function renderView() {
   }
 
   updateBackButtonVisibility();
-  
 }
 
 export function renderSongs(filterText = "") {
-  console.log("Playlist is " + currentPlaylist);
-
+  
   const allSongs = playlists[currentPlaylist] || [];
-const search = filterText.toLowerCase();
+  const search = filterText.toLowerCase();
 
-let songs = allSongs;
+  let songs = allSongs;
 
-// 🔹 Artist filter (from Explore)
-if (selectedArtist) {
-  console.log("Filtering by artist: ", selectedArtist);
-  songs = songs.filter(song => song.artist === selectedArtist);
-}
+  if (selectedArtist) {
+    songs = songs.filter((song) => song.artist === selectedArtist);
+  }
 
-// 🔹 Search filter
-songs = songs.filter(song =>
-  song.songName.toLowerCase().includes(search) || song.artist.toLowerCase().includes(search) || song.album.toLowerCase().includes(search)
-);
+  songs = songs.filter(
+    (song) =>
+      song.songName.toLowerCase().includes(search) ||
+      song.artist.toLowerCase().includes(search) ||
+      song.album.toLowerCase().includes(search),
+  );
 
-setPlayQueue(songs);
+  setPlayQueue(songs);
 
   songGrid.innerHTML = "";
 
   if (songs.length !== 0) {
     songs.forEach((song) => {
-      // console.log("Logging songs, ", song);
       const col = document.createElement("div");
       col.className = "col-6 col-md-4 col-lg-2 songGridCol";
 
@@ -69,8 +91,8 @@ setPlayQueue(songs);
         </div>
       `;
 
-        const menu = col.querySelector(".songMenu");
-            menu.addEventListener("click", (e) => {
+      const menu = col.querySelector(".songMenu");
+      menu.addEventListener("click", (e) => {
         e.stopPropagation();
         setModalTarget(song.id);
 
@@ -79,15 +101,11 @@ setPlayQueue(songs);
         } else {
           openSongContextMenu(menu, song.id);
         }
-});
+      });
 
       col.addEventListener("click", () => {
-        const originalIndex = allSongs.findIndex(
-          s => s.id === song.id
-        );
         setCurrentSongId(song.id);
         playCurrent();
-
       });
 
       songGrid.appendChild(col);
@@ -98,10 +116,8 @@ setPlayQueue(songs);
     col.innerText = "No matching songs found";
     songGrid.appendChild(col);
   }
-  // setSelectedArtist(null);
-  // updateBackButtonVisibility();
-  updateActiveSongUI();
 
+  updateActiveSongUI();
 }
 
 let activeSongMenu = null;
@@ -124,13 +140,11 @@ function openSongContextMenu(anchorEl, songId) {
   document.body.appendChild(menu);
   activeSongMenu = menu;
 
-  // ➕ Add
   menu.querySelector(".add").onclick = () => {
     openAddingSongsModal();
     closeSongContextMenu();
   };
 
-  // 🗑 Remove
   menu.querySelector(".delete").onclick = () => {
     removeSongFromPlaylist(songId, currentPlaylist);
     renderSongs();
@@ -183,13 +197,11 @@ function openFooterContextMenu(anchorEl, songId) {
   document.body.appendChild(menu);
   activeFooterMenu = menu;
 
-  // ➕ Add
   menu.querySelector(".add").onclick = () => {
     openAddingSongsModal();
     closeFooterContextMenu();
   };
 
-  // 🗑 Remove
   menu.querySelector(".delete").onclick = () => {
     removeSongFromPlaylist(songId, currentPlaylist);
     renderSongs();
@@ -208,8 +220,6 @@ function closeFooterContextMenu() {
   }
 }
 
-
-
 function renderExploreSection(title, songs) {
   if (!songs.length) return;
 
@@ -222,7 +232,7 @@ function renderExploreSection(title, songs) {
   const row = document.createElement("div");
   row.className = "row exploreRow";
 
-  songs.slice(0, 6).forEach(song => {
+  songs.slice(0, 6).forEach((song) => {
     const col = document.createElement("div");
     col.className = "col-6 col-md-4 col-lg-2 exploreCol";
 
@@ -236,22 +246,21 @@ function renderExploreSection(title, songs) {
     `;
 
     const menu = col.querySelector(".songMenu");
-      menu.addEventListener("click", (e) => {
-        e.stopPropagation();
-        setModalTarget(song.id);
-        openAddingSongsModal();
-      });
+    menu.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setModalTarget(song.id);
+      openAddingSongsModal();
+    });
 
     col.addEventListener("click", () => {
-      setPlayQueue(songs);      // the explore section list
+      setPlayQueue(songs);
       setCurrentSongId(song.id);
       playCurrent();
-
     });
 
     row.appendChild(col);
   });
-  
+
   section.appendChild(heading);
   section.appendChild(row);
   songGrid.appendChild(section);
@@ -260,22 +269,17 @@ function renderExploreSection(title, songs) {
 function renderLibraryView() {
   songGrid.innerHTML = "";
 
-  Object.keys(playlists).forEach(key => {
+  Object.keys(playlists).forEach((key) => {
     if (key === "Home") return;
 
     const div = document.createElement("div");
     div.className = "libraryCard";
     div.style.background = gradientPresets[key.length % gradientPresets.length];
-    // div.innerText = key;
     div.innerHTML = `
       <div class="libraryTile">${key}</div>
     `;
 
     div.onclick = () => {
-      // switch to that playlist
-      // setCurrentSongIndex(key);
-      // setView("HOME");
-      // renderView();
       switchPlaylist(key);
     };
 
@@ -286,21 +290,14 @@ function renderLibraryView() {
 function renderExploreView() {
   songGrid.innerHTML = "";
 
-  // const backButton = document.createElement("div");
-  // backButton.className = "backBtn";
-  // backButton.innerHTML = `<i id="backArrow" class="fa-solid fa-arrow-left"></i>`;
-
-  // songGrid.appendChild(backButton);
-
   renderExploreSection("Trending  Now....", getTrendingSongs());
 
-  renderArtistSection(); 
+  renderArtistSection();
 
   renderExploreSection("Just Vibes....", filterByMood("Chill"));
   renderExploreSection("Romance Unplugged....", filterByMood("Love"));
-  renderExploreSection("Heavy Hearts....", filterByMood("Sad"))
+  renderExploreSection("Heavy Hearts....", filterByMood("Sad"));
 }
-
 
 function renderArtistSection() {
   const artists = getUniqueArtists();
@@ -317,7 +314,7 @@ function renderArtistSection() {
 
   const row = section.querySelector(".artistRow");
 
-  artists.forEach(artist => {
+  artists.forEach((artist) => {
     const div = document.createElement("div");
     div.className = "artistCard";
 
@@ -327,7 +324,6 @@ function renderArtistSection() {
     `;
 
     div.onclick = () => {
-      console.log("Selected artist: ", artist.name);
       setSelectedArtist(artist.name);
       setView("HOME");
       renderView();
@@ -339,17 +335,16 @@ function renderArtistSection() {
   songGrid.appendChild(section);
 }
 
-
 function getUniqueArtists() {
   const map = new Map();
 
-  playlists.Home.forEach(song => {
+  playlists.Home.forEach((song) => {
     if (!song.artist) return;
 
     if (!map.has(song.artist)) {
       map.set(song.artist, {
         name: song.artist,
-        image: song.artistImage ? song.artistImage : song.coverPath
+        image: song.artistImage ? song.artistImage : song.coverPath,
       });
     }
   });
@@ -357,65 +352,49 @@ function getUniqueArtists() {
   return Array.from(map.values()).slice(0, 8);
 }
 
-
-
-
-
-
-
 function getTrendingSongs() {
-  return [...playlists.Home]
-    .sort((a, b) => b.popularity - a.popularity);
+  return [...playlists.Home].sort((a, b) => b.popularity - a.popularity);
 }
 
 function filterByMood(mood) {
-  return playlists.Home.filter(song =>
-    song.mood && song.mood.includes(mood)
-  );
+  return playlists.Home.filter((song) => song.mood && song.mood.includes(mood));
 }
 
-
-
-
-
 export function renderPlaylists() {
-    dynamicPlaylist.innerHTML = "";
+  dynamicPlaylist.innerHTML = "";
 
-    userPlaylists.forEach(name => {
-        const div = document.createElement("div");
-        div.className = "dynamicTile";
-        div.innerHTML = `
+  userPlaylists.forEach((name) => {
+    const div = document.createElement("div");
+    div.className = "dynamicTile";
+    div.innerHTML = `
             <div class="dynamicTileLeft">
               <span class="dynamicPlaylistName">${name}</span>
               <span class="dynamicPlaylistCategory">${name === "Liked" ? "Default" : "Custom"}</span>
             </div>
             
               ${
-              name !== "Liked"
-                ? `<i class="fa-solid fa-ellipsis-vertical deletePlaylist"></i>`
-                : ""
-                }
+                name !== "Liked"
+                  ? `<i class="fa-solid fa-ellipsis-vertical deletePlaylist"></i>`
+                  : ""
+              }
           `;
-        div.onclick = () => switchPlaylist(name);
+    div.onclick = () => switchPlaylist(name);
 
-        div.addEventListener("click", () => switchPlaylist(name));
+    div.addEventListener("click", () => switchPlaylist(name));
 
-        
-        if(name !== "Liked") {
-            const deleteBtn = div.querySelector(".deletePlaylist");
-            deleteBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            openPlaylistMenu(e.currentTarget, name);
-          });
-        }
-        
+    if (name !== "Liked") {
+      const deleteBtn = div.querySelector(".deletePlaylist");
+      deleteBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openPlaylistMenu(e.currentTarget, name);
+      });
+    }
 
-        dynamicPlaylist.appendChild(div);
-    });
+    dynamicPlaylist.appendChild(div);
+  });
 
-    homeLibrary.onclick = () => switchPlaylist("Home");
+  homeLibrary.onclick = () => switchPlaylist("Home");
 }
-
 
 let activeMenu = null;
 
@@ -466,51 +445,46 @@ function closePlaylistMenu() {
   }
 }
 
-
 export function updateFooter(song) {
-    footerSongTitle.textContent = song.songName;
-    footerSongDescription.textContent = `${song.artist} | ${song.album} | ${song.language}`;
-    footerSongImage.src = song.coverPath;
+  footerSongTitle.textContent = song.songName;
+  footerSongDescription.textContent = `${song.artist} | ${song.album} | ${song.language}`;
+  footerSongImage.src = song.coverPath;
 }
 
 export function openAddingSongsModal() {
-    modalList.innerHTML = "";
+  modalList.innerHTML = "";
 
-    // custom playlists next
-    userPlaylists.forEach(name => {
-        modalList.innerHTML += `
+  userPlaylists.forEach((name) => {
+    modalList.innerHTML += `
             <div class="modalItem" data-key="${name}">${name}</div>
         `;
-    });
+  });
 
-    addingSongsModal.classList.remove("hidden");
+  addingSongsModal.classList.remove("hidden");
 }
 
 export function closeAddingSongsModal() {
-    addingSongsModal.classList.add("hidden");
+  addingSongsModal.classList.add("hidden");
 }
 
-cancelAddingSongs.addEventListener("click", ()=> {
-    addingSongsModal.classList.add("hidden")
-})
-
-
-
-modalList.addEventListener("click", (e) => {
-    const key = e.target.dataset.key;
-    if (!key) return;
-    addSongToPlaylist(modalTargetSong, key);
-    closeAddingSongsModal();
+cancelAddingSongs.addEventListener("click", () => {
+  addingSongsModal.classList.add("hidden");
 });
 
+modalList.addEventListener("click", (e) => {
+  const key = e.target.dataset.key;
+  if (!key) return;
+  addSongToPlaylist(modalTargetSong, key);
+  closeAddingSongsModal();
+});
 
 modalCreate.addEventListener("click", () => {
-    const name = prompt("Playlist name:");
-    if (!name) return;
-    createPlaylist(name);
-    addSongToPlaylist(modalTargetSong, name); // auto add
-    renderPlaylists();
-    closeAddingSongsModal(); 
+  const name = prompt("Playlist name:");
+  if (!name) return;
+  createPlaylist(name);
+  addSongToPlaylist(modalTargetSong, name);
+  renderPlaylists();
+  closeAddingSongsModal();
 });
 
 backBtn.addEventListener("click", () => {
@@ -519,14 +493,8 @@ backBtn.addEventListener("click", () => {
   renderView();
 });
 
-
-
 function updateBackButtonVisibility() {
-  // if (!backBtn) return;
-
-  // SHOW only when artist is selected and we are in HOME view
   if (currentView === "HOME" && selectedArtist) {
-    console.log("Showing back button");
     backBtn.classList.remove("hidden");
   } else {
     backBtn.classList.add("hidden");
@@ -536,20 +504,7 @@ function updateBackButtonVisibility() {
 export function updateActiveSongUI() {
   if (!currentSongId) return;
 
-  document.querySelectorAll(".song-card").forEach(card => {
-    card.classList.toggle(
-      "active",
-      Number(card.dataset.id) === currentSongId
-    );
+  document.querySelectorAll(".song-card").forEach((card) => {
+    card.classList.toggle("active", Number(card.dataset.id) === currentSongId);
   });
 }
-
-
-
-
-
-
-
-
-
-

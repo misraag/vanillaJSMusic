@@ -1,68 +1,49 @@
 import { playlists, userPlaylists } from "./playlists.js";
 
-export let currentSongIndex = 0;
 export let currentPlaylist = "Home";
-
-
-
 export let currentView = "HOME";
 export let previousView = null;
+export let currentSongId = null;
+export let selectedArtist = null;
+export let isRepeatOn = false;
+export let playQueue = [];
+export let modalTargetSong = null;
+
+
+export function setCurrentPlaylist(playlistName) {
+  currentPlaylist = playlistName;
+}
 
 export function setView(view) {
   previousView = currentView;
   currentView = view
 }
 
-export let selectedArtist = null;
+export function setCurrentSongId(id) {
+  currentSongId = id;
+}
 
 export function setSelectedArtist(artist) {
   selectedArtist = artist;
 }
 
-
-export let isRepeatOn = false;
-
 export function toggleRepeat() {
   isRepeatOn = !isRepeatOn;
 }
-
-
-
-export let currentSongId = null;
-
-export function setCurrentSongId(id) {
-  currentSongId = id;
-}
-
-export let playQueue = [];
 
 export function setPlayQueue(list) {
   playQueue = list;
 }
 
+export function setModalTarget(id) {
+    modalTargetSong = id;
+}
+
+
+// ***************HELPER FUNCTIONS **************** //
 export function getCurrentSong() {
   if (!currentSongId) return null;
   return playQueue.find(song => song.id === currentSongId);
-}
-
-
-
-
-export function setCurrentSongIndex(i) {
-    currentSongIndex = i;
-}
-
-export function setCurrentPlaylist(playlistName) {
-  currentPlaylist = playlistName;
-}
-
-
-
-//ADDING SONGS TO PLAYLIST
-export let modalTargetSong = null;
-
-export function setModalTarget(id) {
-    modalTargetSong = id;
 }
 
 export function getSongById(id) {
@@ -70,51 +51,18 @@ export function getSongById(id) {
 }
 
 
-export function addSongToPlaylist(songId, playlistName) {
-    const song = getSongById(songId);
-    if (!song) return;
 
-    const list = playlists[playlistName];
 
-    const alreadyExists = list.some(s => s.id === songId);
-    if (!alreadyExists) list.push(song);
 
-    saveState();
-}
-
+// *************** PLAYLIST MANAGEMENT **************** //
 export function createPlaylist(name) {
-    if (!name || playlists[name]) return; // avoid duplicates
+    if (!name || playlists[name]) return; 
 
-    // create empty playlist
     playlists[name] = [];
 
-    // update ordering (so it shows in sidebar)
     userPlaylists.push(name);
 
     saveState();
-}
-
-
-
-export function saveState() {
-    localStorage.setItem("playlists", JSON.stringify(playlists));
-    localStorage.setItem("userPlaylists", JSON.stringify(userPlaylists));
-}
-
-export function loadState() {
-  const storedPlaylists = JSON.parse(localStorage.getItem("playlists"));
-  const storedUserPlaylists = JSON.parse(localStorage.getItem("userPlaylists"));
-
-  if (storedPlaylists) {
-    Object.keys(storedPlaylists).forEach(key => {
-      playlists[key] = storedPlaylists[key];
-    });
-  }
-
-  if (storedUserPlaylists) {
-    userPlaylists.length = 0;
-    userPlaylists.push(...storedUserPlaylists);
-  }
 }
 
 export function deletePlaylist(name) {
@@ -141,6 +89,18 @@ export function renamePlaylist(oldName, newName) {
   saveState();
 }
 
+export function addSongToPlaylist(songId, playlistName) {
+    const song = getSongById(songId);
+    if (!song) return;
+
+    const list = playlists[playlistName];
+
+    const alreadyExists = list.some(s => s.id === songId);
+    if (!alreadyExists) list.push(song);
+
+    saveState();
+}
+
 export function removeSongFromPlaylist(songId, playlistName) {
   if (playlistName === "Home") return;
 
@@ -153,6 +113,33 @@ export function removeSongFromPlaylist(songId, playlistName) {
     saveState();
   }
 }
+
+
+
+
+// *************** LOCAL STORAGE SAVE LOAD **************** //
+export function saveState() {
+    localStorage.setItem("playlists", JSON.stringify(playlists));
+    localStorage.setItem("userPlaylists", JSON.stringify(userPlaylists));
+}
+
+export function loadState() {
+  const storedPlaylists = JSON.parse(localStorage.getItem("playlists"));
+  const storedUserPlaylists = JSON.parse(localStorage.getItem("userPlaylists"));
+
+  if (storedPlaylists) {
+    Object.keys(storedPlaylists).forEach(key => {
+      playlists[key] = storedPlaylists[key];
+    });
+  }
+
+  if (storedUserPlaylists) {
+    userPlaylists.length = 0;
+    userPlaylists.push(...storedUserPlaylists);
+  }
+}
+
+
 
 
 
