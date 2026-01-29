@@ -18,7 +18,7 @@ import {
   backBtn,
 } from "./dom.js";
 import { renderPlaylists, renderSongs, renderView } from "./ui.js";
-import { currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setView, toggleRepeat, userPlaylists } from "./state.js";
+import { createPlaylist, currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setView, toggleRepeat, userPlaylists } from "./state.js";
 
 import {
   playlists,
@@ -66,8 +66,8 @@ export function initPlaylistEvents() {
       return;
     }
 
-    playlists[name] = [];
-    userPlaylists.push(name);
+  
+    createPlaylist(name);
 
     playlistModal.classList.add("hidden");
     renderPlaylists();

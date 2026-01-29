@@ -536,10 +536,19 @@ export function saveState() {
 }
 
 export function loadState() {
-    const storedPlaylists = JSON.parse(localStorage.getItem("playlists"));
-    const storedUserPlaylists = JSON.parse(localStorage.getItem("userPlaylists"));
+  const storedPlaylists = JSON.parse(localStorage.getItem("playlists"));
+  const storedUserPlaylists = JSON.parse(localStorage.getItem("userPlaylists"));
 
-    if (storedPlaylists) Object.assign(playlists, storedPlaylists);
-    if (storedUserPlaylists) userPlaylists.splice(0, userPlaylists.length, ...storedUserPlaylists);
+  if (storedPlaylists) {
+    Object.keys(storedPlaylists).forEach(key => {
+      playlists[key] = storedPlaylists[key];
+    });
+  }
+
+  if (storedUserPlaylists) {
+    userPlaylists.length = 0;
+    userPlaylists.push(...storedUserPlaylists);
+  }
 }
+
 
