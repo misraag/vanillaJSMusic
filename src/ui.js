@@ -3,6 +3,15 @@ import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, play
 import { switchPlaylist } from "./events.js";
 import { playCurrent, playSong } from "./player.js";
 
+const gradientPresets = [
+  "linear-gradient(135deg, #9929ea, #f037d7)",
+  "linear-gradient(135deg, #1db954, #1ed760)",
+  "linear-gradient(135deg, #ff512f, #dd2476)",
+  "linear-gradient(135deg, #00c6ff, #0072ff)",
+  "linear-gradient(135deg, #f7971e, #ffd200)"
+];
+
+
 export function renderView() {
   if (currentView === "HOME") {
     renderSongs();
@@ -144,13 +153,18 @@ function renderLibraryView() {
 
     const div = document.createElement("div");
     div.className = "libraryCard";
-    div.innerText = key;
+    div.style.background = gradientPresets[key.length % gradientPresets.length];
+    // div.innerText = key;
+    div.innerHTML = `
+      <div class="libraryTile">${key}</div>
+    `;
 
     div.onclick = () => {
       // switch to that playlist
-      setCurrentSongIndex(key);
-      setView("HOME");
-      renderView();
+      // setCurrentSongIndex(key);
+      // setView("HOME");
+      // renderView();
+      switchPlaylist(key);
     };
 
     songGrid.appendChild(div);

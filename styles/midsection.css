@@ -366,3 +366,42 @@
   font-weight: 600;
 }
 
+/* ************************LIBRARY VIEW************************* */
+
+.libraryCard{
+  margin-right: 30px;
+  padding: 20px;
+  border-radius: 80px;
+  cursor: pointer;
+}
+
+.libraryTile{
+    font-size: 18px;
+    /* font-weight: bold; */
+    /* padding: 10px 20px; */
+    cursor: pointer;
+    border-radius: 5px;
+    /* background: linear-gradient(
+    to bottom,
+    #9929ea,
+    rgb(240, 55, 215)
+    );
+    background: linear-gradient(
+    to right,
+    #9929ea,
+    rgb(240, 55, 215)
+    ); */
+    /* margin: 25px; */
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Bitcount Prop Single", system-ui;
+    /* margin-right: 10px; */
+    /* background-color: red; */
+    /* background-color: transparent; */
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+}
+
