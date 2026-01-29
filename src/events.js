@@ -27,6 +27,7 @@ import {
 import { renderPlaylists, renderSongs, renderView } from "./ui.js";
 import {
   createPlaylist,
+  currentView,
   isRepeatOn,
   setCurrentPlaylist,
   setSelectedArtist,
@@ -126,6 +127,11 @@ backBtn.addEventListener("click", () => navigateTo(VIEWS.EXPLORE));
 
 // NAVBAR EVENTS----------------------------
 searchBar.addEventListener("input", () => {
+  if(currentView !== VIEWS.HOME){
+    setCurrentPlaylist("Home");
+    setView(VIEWS.HOME);
+    renderView();
+  }
   const value = searchBar.value.trim();
   renderSongs(value);
 });
