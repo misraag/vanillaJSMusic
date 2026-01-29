@@ -1,16 +1,9 @@
 /************************** LEFT SECTION ***************************/
 
 .logoSection {
-   /* cursor: pointer; */
    margin: 2px auto;
    margin-top: 5px;
    display: flex;
-   /* align-items: center;   */
-   /* background-color: green; */
-   /* background-color: red; */
-   /* justify-content: center; */
-   /* margin-bottom: 120px; */
-   /* padding: 20px; */
 }
 
 .navTile{
@@ -18,9 +11,6 @@
     margin-bottom: 5px;
     display: flex;
     align-items: center;
-    /* background-color: green; */
-    /* color: green; */
-    /* background-color: red; */
 }
 
 .navTile i {
@@ -30,26 +20,15 @@
     width: 25px;
     display: flex;
     justify-content: center;
-    /* background-color: green; */
 }
 
 .websiteLogo{
     display: flex;
     background-color: transparent;
-    /* font-size: 1.1rem; */
-    /* justify-content: center; */
-    /* align-items: center; */
     text-align: center;
     font-weight: 500;
-    /* background-color: red; */
     height: 50px;
-    /* margin-top: auto; */
-    /* text-align: center;
-    align-items: center; */
-    /* justify-content: center; */
-    /* background-color: red; */
     align-items: center;
-    
 }
 
 .websiteName{
@@ -64,10 +43,7 @@
     padding: 0;
     margin-left: 0;
     margin-right: 3px;
-    /* height: 28px; */
     align-items: center;
-    /* color: wheat; */
-    /* background-color: red; */
     width: 34px;
     height: 34px;
     border-radius: 80px;
