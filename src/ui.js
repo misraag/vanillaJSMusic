@@ -14,6 +14,7 @@ import {
   renamePlaylist,
   deletePlaylist,
   removeSongFromPlaylist,
+  setCurrentPlaylist,
 } from "./state.js";
 import {
   songGrid,
@@ -322,6 +323,7 @@ function renderArtistSection() {
 
     div.onclick = () => {
       setSelectedArtist(artist.name);
+      setCurrentPlaylist("Home");
       setView("HOME");
       renderView();
     };

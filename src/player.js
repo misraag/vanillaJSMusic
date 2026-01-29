@@ -52,7 +52,9 @@ export function togglePlay() {
 
 export function playSong() {
   if (!song) {
-    setCurrentSongId(1); 
+    if (!playQueue.length) return;
+    
+    setCurrentSongId(playQueue[0].id);
     playCurrent();
   } else {
     audioPlayer.play();

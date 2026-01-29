@@ -1,4 +1,5 @@
 import { playlists, userPlaylists } from "./playlists.js";
+import { renderView } from "./ui.js";
 
 export let currentPlaylist = "Home";
 export let currentView = "HOME";
@@ -72,6 +73,9 @@ export function deletePlaylist(name) {
 
   const index = userPlaylists.indexOf(name);
   if (index !== -1) userPlaylists.splice(index, 1);
+
+  setCurrentPlaylist("Home");
+  renderView();
 
   saveState();
 }
