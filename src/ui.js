@@ -56,7 +56,7 @@ export function renderView() {
 }
 
 export function renderSongs(filterText = "") {
-  
+
   const allSongs = playlists[currentPlaylist] || [];
   const search = filterText.toLowerCase();
 
@@ -169,12 +169,7 @@ footerMenu.addEventListener("click", (e) => {
   if (!currentSongId) return;
 
   setModalTarget(currentSongId);
-
-  if (currentPlaylist === "Home") {
-    openAddingSongsModal();
-  } else {
-    openFooterContextMenu(footerMenu, currentSongId);
-  }
+  openFooterContextMenu(footerMenu, currentSongId); 
 });
 
 let activeFooterMenu = null;
@@ -197,11 +192,13 @@ function openFooterContextMenu(anchorEl, songId) {
   document.body.appendChild(menu);
   activeFooterMenu = menu;
 
+  // ➕ Add to Playlist
   menu.querySelector(".add").onclick = () => {
-    openAddingSongsModal();
+    openAddingSongsModal(); // Open the modal only when this option is clicked
     closeFooterContextMenu();
   };
 
+  // 🗑 Remove from Playlist
   menu.querySelector(".delete").onclick = () => {
     removeSongFromPlaylist(songId, currentPlaylist);
     renderSongs();

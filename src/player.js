@@ -115,12 +115,6 @@ function formatTime(seconds) {
 }
 
 function initPlayerEvents() {
-  footerMenu.addEventListener("click", () => {
-    if (!currentSongId) return;
-    setModalTarget(currentSongId);
-    openAddingSongsModal();
-  });
-
   progressBar.addEventListener("click", (e) => {
     const rect = progressBar.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
