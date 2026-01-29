@@ -148,6 +148,66 @@ function closeSongContextMenu() {
   }
 }
 
+footerMenu.addEventListener("click", (e) => {
+  e.stopPropagation();
+
+  if (!currentSongId) return;
+
+  setModalTarget(currentSongId);
+
+  if (currentPlaylist === "Home") {
+    openAddingSongsModal();
+  } else {
+    openFooterContextMenu(footerMenu, currentSongId);
+  }
+});
+
+let activeFooterMenu = null;
+
+function openFooterContextMenu(anchorEl, songId) {
+  closeFooterContextMenu();
+
+  const menu = document.createElement("div");
+  menu.className = "songContextMenu";
+
+  menu.innerHTML = `
+    <div class="menuItem add">➕ Add to playlist</div>
+    <div class="menuItem delete">🗑 Remove from this playlist</div>
+  `;
+
+  const rect = anchorEl.getBoundingClientRect();
+  menu.style.top = `${rect.top - 90}px`;
+  menu.style.left = `${rect.left - 120}px`;
+
+  document.body.appendChild(menu);
+  activeFooterMenu = menu;
+
+  // ➕ Add
+  menu.querySelector(".add").onclick = () => {
+    openAddingSongsModal();
+    closeFooterContextMenu();
+  };
+
+  // 🗑 Remove
+  menu.querySelector(".delete").onclick = () => {
+    removeSongFromPlaylist(songId, currentPlaylist);
+    renderSongs();
+    closeFooterContextMenu();
+  };
+
+  setTimeout(() => {
+    document.addEventListener("click", closeFooterContextMenu, { once: true });
+  }, 0);
+}
+
+function closeFooterContextMenu() {
+  if (activeFooterMenu) {
+    activeFooterMenu.remove();
+    activeFooterMenu = null;
+  }
+}
+
+
 
 function renderExploreSection(title, songs) {
   if (!songs.length) return;

@@ -17,7 +17,7 @@ import {
   libraryBtn,
   backBtn,
 } from "./dom.js";
-import { renderPlaylists, renderSongs, renderView } from "./ui.js";
+import { openAddingSongsModal, renderPlaylists, renderSongs, renderView } from "./ui.js";
 import { createPlaylist, currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setView, toggleRepeat, userPlaylists } from "./state.js";
 
 import {
