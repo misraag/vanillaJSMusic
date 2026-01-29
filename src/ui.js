@@ -46,7 +46,7 @@ if (selectedArtist) {
 
 // 🔹 Search filter
 songs = songs.filter(song =>
-  song.songName.toLowerCase().includes(search)
+  song.songName.toLowerCase().includes(search) || song.artist.toLowerCase().includes(search) || song.album.toLowerCase().includes(search)
 );
 
 setPlayQueue(songs);
