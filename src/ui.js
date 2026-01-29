@@ -192,13 +192,13 @@ function openFooterContextMenu(anchorEl, songId) {
   document.body.appendChild(menu);
   activeFooterMenu = menu;
 
-  // ➕ Add to Playlist
+  
   menu.querySelector(".add").onclick = () => {
-    openAddingSongsModal(); // Open the modal only when this option is clicked
+    openAddingSongsModal(); 
     closeFooterContextMenu();
   };
 
-  // 🗑 Remove from Playlist
+  
   menu.querySelector(".delete").onclick = () => {
     removeSongFromPlaylist(songId, currentPlaylist);
     renderSongs();
