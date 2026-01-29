@@ -551,4 +551,29 @@ export function loadState() {
   }
 }
 
+export function deletePlaylist(name) {
+  if (name === "Liked" || name === "Home") return;
+
+  delete playlists[name];
+
+  const index = userPlaylists.indexOf(name);
+  if (index !== -1) userPlaylists.splice(index, 1);
+
+  saveState();
+}
+
+export function renamePlaylist(oldName, newName) {
+  const clean = newName.trim();
+  if (!clean || playlists[clean]) return;
+
+  playlists[clean] = playlists[oldName];
+  delete playlists[oldName];
+
+  const index = userPlaylists.indexOf(oldName);
+  if (index !== -1) userPlaylists[index] = clean;
+
+  saveState();
+}
+
+
 

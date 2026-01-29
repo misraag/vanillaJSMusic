@@ -1,4 +1,4 @@
-import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView, selectedArtist, setSelectedArtist, currentSongIndex, setCurrentSongId, currentSongId, setPlayQueue } from "./state.js";
+import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView, selectedArtist, setSelectedArtist, currentSongIndex, setCurrentSongId, currentSongId, setPlayQueue, renamePlaylist, deletePlaylist } from "./state.js";
 import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs, backBtn, songCard} from "./dom.js";
 import { switchPlaylist } from "./events.js";
 import { playCurrent, playSong } from "./player.js";
@@ -273,15 +273,87 @@ export function renderPlaylists() {
         const div = document.createElement("div");
         div.className = "dynamicTile";
         div.innerHTML = `
-            <span class="dynamicPlaylistName">${name}</span>
-            <span class="dynamicPlaylistCategory">${name === "Liked" ? "Default" : "Custom"}</span>
-        `;
+            <div class="dynamicTileLeft">
+              <span class="dynamicPlaylistName">${name}</span>
+              <span class="dynamicPlaylistCategory">${name === "Liked" ? "Default" : "Custom"}</span>
+            </div>
+            
+              ${
+              name !== "Liked"
+                ? `<i class="fa-solid fa-ellipsis-vertical deletePlaylist"></i>`
+                : ""
+                }
+          `;
         div.onclick = () => switchPlaylist(name);
+
+        div.addEventListener("click", () => switchPlaylist(name));
+
+        
+        if(name !== "Liked") {
+            const deleteBtn = div.querySelector(".deletePlaylist");
+            deleteBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openPlaylistMenu(e.currentTarget, name);
+          });
+        }
+        
+
         dynamicPlaylist.appendChild(div);
     });
 
     homeLibrary.onclick = () => switchPlaylist("Home");
 }
+
+
+let activeMenu = null;
+
+function openPlaylistMenu(button, playlistName) {
+  closePlaylistMenu();
+
+  const menu = document.createElement("div");
+  menu.className = "playlistContextMenu";
+
+  menu.innerHTML = `
+    <div class="menuItem rename">Rename</div>
+    <div class="menuItem delete">Delete</div>
+  `;
+
+  const rect = button.getBoundingClientRect();
+  menu.style.top = `${rect.bottom + window.scrollY}px`;
+  menu.style.left = `${rect.left - 120}px`;
+
+  document.body.appendChild(menu);
+  activeMenu = menu;
+
+  menu.querySelector(".rename").onclick = () => {
+    const newName = prompt("Rename playlist:", playlistName);
+    if (!newName) return;
+
+    renamePlaylist(playlistName, newName);
+    renderPlaylists();
+    closePlaylistMenu();
+  };
+
+  menu.querySelector(".delete").onclick = () => {
+    if (!confirm(`Delete "${playlistName}"?`)) return;
+
+    deletePlaylist(playlistName);
+    renderPlaylists();
+    closePlaylistMenu();
+  };
+
+  setTimeout(() => {
+    document.addEventListener("click", closePlaylistMenu, { once: true });
+  }, 0);
+}
+
+function closePlaylistMenu() {
+  if (activeMenu) {
+    activeMenu.remove();
+    activeMenu = null;
+  }
+}
+
 
 export function updateFooter(song) {
     footerSongTitle.textContent = song.songName;
