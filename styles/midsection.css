@@ -254,6 +254,29 @@
 
 
 
+.songContextMenu {
+  position: absolute;
+  background: #1f1f1f;
+  border-radius: 10px;
+  padding: 6px 0;
+  width: 180px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  z-index: 2000;
+}
+
+.songContextMenu .menuItem {
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.songContextMenu .menuItem:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.songContextMenu .delete {
+  color: #ff5c5c;
+}
 
 
 

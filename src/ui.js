@@ -1,4 +1,4 @@
-import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView, selectedArtist, setSelectedArtist, currentSongIndex, setCurrentSongId, currentSongId, setPlayQueue, renamePlaylist, deletePlaylist } from "./state.js";
+import { playlists, currentPlaylist, userPlaylists, setModalTarget, addSongToPlaylist, modalTargetSong, createPlaylist, setCurrentSongIndex, setView, currentView, selectedArtist, setSelectedArtist, currentSongIndex, setCurrentSongId, currentSongId, setPlayQueue, renamePlaylist, deletePlaylist, removeSongFromPlaylist } from "./state.js";
 import { songGrid, footerSongTitle, footerSongDescription, footerSongImage, playlistModal, modalList, modalCreate, addingSongsModal, homeLibrary, cancelAddingSongs, backBtn, songCard} from "./dom.js";
 import { switchPlaylist } from "./events.js";
 import { playCurrent, playSong } from "./player.js";
@@ -68,12 +68,17 @@ setPlayQueue(songs);
         </div>
       `;
 
-      const menu = col.querySelector(".songMenu");
-      menu.addEventListener("click", (e) => {
+        const menu = col.querySelector(".songMenu");
+            menu.addEventListener("click", (e) => {
         e.stopPropagation();
         setModalTarget(song.id);
-        openAddingSongsModal();
-      });
+
+        if (currentPlaylist === "Home") {
+          openAddingSongsModal();
+        } else {
+          openSongContextMenu(menu, song.id);
+        }
+});
 
       col.addEventListener("click", () => {
         const originalIndex = allSongs.findIndex(
@@ -97,6 +102,52 @@ setPlayQueue(songs);
   updateActiveSongUI();
 
 }
+
+let activeSongMenu = null;
+
+function openSongContextMenu(anchorEl, songId) {
+  closeSongContextMenu();
+
+  const menu = document.createElement("div");
+  menu.className = "songContextMenu";
+
+  menu.innerHTML = `
+    <div class="menuItem add">➕ Add to playlist</div>
+    <div class="menuItem delete">🗑 Remove from playlist</div>
+  `;
+
+  const rect = anchorEl.getBoundingClientRect();
+  menu.style.top = `${rect.top - 80 + window.scrollY}px`;
+  menu.style.left = `${rect.left - 120}px`;
+
+  document.body.appendChild(menu);
+  activeSongMenu = menu;
+
+  // ➕ Add
+  menu.querySelector(".add").onclick = () => {
+    openAddingSongsModal();
+    closeSongContextMenu();
+  };
+
+  // 🗑 Remove
+  menu.querySelector(".delete").onclick = () => {
+    removeSongFromPlaylist(songId, currentPlaylist);
+    renderSongs();
+    closeSongContextMenu();
+  };
+
+  setTimeout(() => {
+    document.addEventListener("click", closeSongContextMenu, { once: true });
+  }, 0);
+}
+
+function closeSongContextMenu() {
+  if (activeSongMenu) {
+    activeSongMenu.remove();
+    activeSongMenu = null;
+  }
+}
+
 
 function renderExploreSection(title, songs) {
   if (!songs.length) return;

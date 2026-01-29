@@ -575,5 +575,19 @@ export function renamePlaylist(oldName, newName) {
   saveState();
 }
 
+export function removeSongFromPlaylist(songId, playlistName) {
+  if (playlistName === "Home") return;
+
+  const list = playlists[playlistName];
+  if (!list) return;
+
+  const index = list.findIndex(s => s.id === songId);
+  if (index !== -1) {
+    list.splice(index, 1);
+    saveState();
+  }
+}
+
+
 
 
