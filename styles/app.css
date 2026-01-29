@@ -34,7 +34,8 @@
 .leftSection{
     width: 16%;
     height: 100%;
-    padding: 20px;/
+    padding: 0 20px;
+    /* background-color: blue; */
 }
 
 .rightSection{
