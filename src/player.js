@@ -1,6 +1,4 @@
 import {
-  playlists,
-  currentPlaylist,
   currentSongIndex,
   setCurrentSongIndex,
   setModalTarget,
@@ -13,6 +11,7 @@ import {
 import { audioPlayer, progressBar, repeatButton, seekBar, timeDisplay, volumeIcon, volumeSlider } from "./dom.js";
 import { playToggleButton } from "./dom.js";
 import { openAddingSongsModal, updateActiveSongUI, updateFooter } from "./ui.js";
+import { playlists, userPlaylists } from "./playlists.js";
 
 export let isPlaying = false;
 

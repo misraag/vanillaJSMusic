@@ -19,14 +19,13 @@ import {
   logoSection,
 } from "./dom.js";
 import { openAddingSongsModal, renderPlaylists, renderSongs, renderView } from "./ui.js";
-import { createPlaylist, currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setSelectedArtist, setView, toggleRepeat, userPlaylists } from "./state.js";
+import { createPlaylist, currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setSelectedArtist, setView, toggleRepeat } from "./state.js";
 
 import {
-  playlists,
-  currentPlaylist,
   currentSongIndex,
   setCurrentSongIndex,
 } from "./state.js";
+import { playlists, userPlaylists } from "./playlists.js";
 
 let lastVolume = 50;
 
