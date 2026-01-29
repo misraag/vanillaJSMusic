@@ -12,6 +12,7 @@ export const createPlaylistBtn = document.getElementById("createPlaylist");
 export const dynamicPlaylist = document.getElementById("dynamicPlaylist");
 
 export const searchBar = document.querySelector(".searchBar");
+export const logoSection = document.querySelector(".logoSection");
 
 // Footer info
 export const footerSongTitle = document.querySelector(".songTitle");
@@ -51,4 +52,6 @@ export const cancelAddingSongs = document.getElementById("cancelAddingSongs");
 // export const searchBar = document.querySelector(".searchBar");
 
 export const backBtn = document.querySelector("#backBtn");
+
+
 

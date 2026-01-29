@@ -16,9 +16,10 @@ import {
   exploreBtn,
   libraryBtn,
   backBtn,
+  logoSection,
 } from "./dom.js";
 import { openAddingSongsModal, renderPlaylists, renderSongs, renderView } from "./ui.js";
-import { createPlaylist, currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setView, toggleRepeat, userPlaylists } from "./state.js";
+import { createPlaylist, currentView, isRepeatOn, setCurrentPlaylist, setModalTarget, setSelectedArtist, setView, toggleRepeat, userPlaylists } from "./state.js";
 
 import {
   playlists,
@@ -127,3 +128,10 @@ backBtn.addEventListener("click", ()=> {
   setView("EXPLORE");
   renderView();
 });
+
+logoSection.addEventListener("click", ()=> {
+  setCurrentPlaylist("Home");
+  setSelectedArtist(null);
+  setView("HOME");
+  renderView();
+})

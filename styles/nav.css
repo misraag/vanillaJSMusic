@@ -1,7 +1,7 @@
 /************************** LEFT SECTION ***************************/
 
 .logoSection {
-   cursor: pointer;
+   /* cursor: pointer; */
    margin: 2px auto;
    margin-top: 5px;
    display: flex;
